@@ -1,10 +1,16 @@
-package org.example.views;
+package org.example.Views;
 
 import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.example.Controllers.AdmController;
+import org.example.Exceptions.AdmLoginFailedException;
+import org.example.Models.Usuario.Administrador;
 
 import static org.example.Controllers.AdmController.adicionarFilme;
 
 public class AdmView {
+    private static final Logger logger = LogManager.getLogger(AdmView.class);
 
     public static void menuAdm(){
         System.out.println("######################");
@@ -16,7 +22,7 @@ public class AdmView {
         System.out.println("######################");
     }
 
-    public static void menuAdmLogado(){
+    public static void menuAdmLogado(Administrador adm){
         System.out.println("######################");
         System.out.println("#      BEM VINDO     #");
         System.out.println("#      MENU ADM      ");
@@ -38,16 +44,13 @@ public class AdmView {
         System.out.println("0- sair");
         System.out.println("1- Criar Sessao");
         System.out.println("######################");
-
-
-
     }
 
 
-    public static void escolhaMenuAdm(Scanner sc, int op){
+    public static void escolhaMenuAdm(Scanner sc, int op) {
         switch (op){
             case 0 -> System.out.println("Saindo....");
-            case 1 -> System.out.println("Logando....");
+            case 1 -> logarAdm(sc);
             default -> System.out.println("Opção errada");
 
 //            System.out.println("0- sair");
@@ -55,6 +58,24 @@ public class AdmView {
 
         }
     }
+    // ====== Funcões MenuAdm =====
+    public static void logarAdm(Scanner sc){
+        try {
+
+        System.out.println("Nome: ");
+        String nome = sc.nextLine();
+        System.out.println("Senha: ");
+        String senha = sc.nextLine();
+
+        //se logado ele vai passar como parametro para usar nessa função
+        menuAdmLogado(AdmController.login(nome, senha));
+
+         }catch (AdmLoginFailedException e){
+            System.out.println("Erro: " + e.getMessage());
+      }
+    }
+
+    //
 
     public static void escolhaMenuAdmLogado(Scanner sc, int op){
         switch (op){
