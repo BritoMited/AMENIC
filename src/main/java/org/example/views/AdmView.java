@@ -30,7 +30,7 @@ public class AdmView {
         System.out.println("0- sair");
         System.out.println("1- Criar sessão");
         System.out.println("2- Listrar ingresos e total vendido");
-        System.out.println("3- imprimir ingresos");
+        System.out.println("3- Imprimir ingresos");
         System.out.println("######################");
 
     }
