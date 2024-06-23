@@ -38,7 +38,4 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    public abstract void login();
-
-    public abstract void registrar();
 }

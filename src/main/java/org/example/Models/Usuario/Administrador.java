@@ -1,20 +1,17 @@
 package org.example.Models.Usuario;
 
+import java.util.UUID;
+
 public class Administrador extends Usuario{
+
+    private UUID id;
 
     public Administrador(String nome, String senha) {
         super(nome, senha);
+        this.id = UUID.randomUUID();
     }
 
-    @Override
-    public void login() {
 
-    }
-
-    @Override
-    public void registrar() {
-
-    }
 
    // public void adicionarFilme();
    // public void listarFilme();
