@@ -17,4 +17,37 @@ public class Cliente extends Usuario{
         this.pcd = pcd;
     }
 
+    @Override
+    public UUID getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
+
+    public Boolean getEstudante() {
+        return estudante;
+    }
+
+    public void setEstudante(Boolean estudante) {
+        this.estudante = estudante;
+    }
+
+    public Boolean getPcd() {
+        return pcd;
+    }
+
+    public void setPcd(Boolean pcd) {
+        this.pcd = pcd;
+    }
 }

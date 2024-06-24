@@ -1,10 +1,23 @@
 package org.example.Views;
 
+import org.example.Models.Usuario.Cliente;
+import org.example.Utils.Util;
+
 import java.util.Scanner;
 
 import static org.example.Controllers.ClienteControllers.*;
+import static org.example.Daos.ClienteDaos.registrarClienteDao;
 
 public class ClienteView{
+
+    public static void iniciar(Scanner scanner) {
+        int op;
+        do {
+            MenuCliente();
+            op = Util.lerOpcoesMenu(scanner);
+            escolhaMenuCliente(scanner, op);
+        } while (op != 0);
+    }
     public static void MenuCliente(){
         System.out.println("######################");
         System.out.println("#      BEM VINDO     #");
@@ -93,7 +106,7 @@ public class ClienteView{
         switch (op){
             case 0 -> System.out.println("Saindo....");
             case 1 -> System.out.println("Logando....");
-            case 2 -> System.out.println("Registrando....");
+            case 2 -> registrarClienteDao(new Cliente("nome", "senha", 18, true, "true"));
             case 3 -> System.out.println("Saindo....");
             case 4 -> rembolsarIngresso();
             case 5 -> imprimirIngresso();
