@@ -12,6 +12,7 @@ import java.util.UUID;
 public abstract class Ingresso {
 
     private UUID id;
+    private Integer id_sessao;
     private Filme filme;
     private Cadeira cadeira;
     private LocalDateTime horario;
@@ -23,6 +24,14 @@ public abstract class Ingresso {
         this.cadeira = cadeira;
         this.cliente = cliente;
         this.horario = horario; // talvez tenha como pegar a hora .now
+    }
+
+    public Integer getId_sessao() {
+        return id_sessao;
+    }
+
+    public void setId_sessao(Integer id_sessao) {
+        this.id_sessao = id_sessao;
     }
 
     public UUID getId() {

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sessao {
+    private Integer id;
     private Filme filme;
     private LocalDateTime horario;
     private Double valor;
@@ -22,6 +23,14 @@ public class Sessao {
     }
 
     public Sessao(Filme filme) {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Filme getFilme() {

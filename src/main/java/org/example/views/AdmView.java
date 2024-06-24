@@ -1,15 +1,17 @@
 package org.example.Views;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.Controllers.AdmController;
-import org.example.Exceptions.AdmLoginFailedException;
+import org.example.Models.Filme;
+import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
 
-import static org.example.Controllers.AdmController.adicionarFilme;
-
 public class AdmView {
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
     private static final Logger logger = LogManager.getLogger(AdmView.class);
 
     public static void menuAdm(){
@@ -59,8 +61,8 @@ public class AdmView {
         }
     }
     // ====== Funcões MenuAdm =====
+
     public static void logarAdm(Scanner sc){
-        try {
 
         System.out.println("Nome: ");
         String nome = sc.nextLine();
@@ -70,9 +72,6 @@ public class AdmView {
         //se logado ele vai passar como parametro para usar nessa função
         menuAdmLogado(AdmController.login(nome, senha));
 
-         }catch (AdmLoginFailedException e){
-            System.out.println("Erro: " + e.getMessage());
-      }
     }
 
     //
@@ -96,7 +95,7 @@ public class AdmView {
     public static void escolhaMenuAdmCriarSessao(Scanner sc, int op){
         switch (op){
             case 0 -> System.out.println("Saindo....");
-            case 1 -> adicionarFilme(sc);
+            case 1 -> adicionarSessao(sc);
             default -> System.out.println("Opção errada");
 
 //            System.out.println("0- sair");
@@ -108,6 +107,26 @@ public class AdmView {
 //            System.out.println("######################");
 
         }
+    }
+
+    // ====== Função ADM criar sessao =====
+
+    public static void adicionarSessao(Scanner sc){
+        System.out.println("1- Digite o nome do filme");
+        String titulo = sc.nextLine();
+        System.out.println("2- Digite o genero do filme");
+        String genero = sc.nextLine();
+        System.out.println("3- Digite o horario da sessao: (dd/mm/yy HH:mm)");
+        LocalDateTime horarioSessao = LocalDateTime.parse(sc.nextLine(), dtf);
+        System.out.println("4- Digite o valor da sessao");
+        Double valor = sc.nextDouble();
+        System.out.println("5- Digite o numero da sessao");
+        int n = sc.nextInt();
+
+        Sessao sessao = new Sessao(new Filme(titulo,genero), horarioSessao, valor);
+        sessao.setId(n);
+
+        AdmController.criarSessao(sessao);
     }
 
 
