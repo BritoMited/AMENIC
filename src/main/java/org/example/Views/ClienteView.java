@@ -106,7 +106,7 @@ public class ClienteView{
         switch (op){
             case 0 -> System.out.println("Saindo....");
             case 1 -> System.out.println("Logando....");
-            case 2 -> registrarClienteDao(new Cliente("nome", "senha", 18, true, "true"));
+            case 2 -> registrarUsuario(sc);
             case 3 -> System.out.println("Saindo....");
             case 4 -> rembolsarIngresso();
             case 5 -> imprimirIngresso();
