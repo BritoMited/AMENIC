@@ -12,8 +12,8 @@ import java.util.List;
 public class AdmController {
 
 
-    private static final String ADM_FILE_NAME = "colocar caminho do arquivo";
-    private static final String SESSAO_FILE_NAME = "colocar caminho do arquivo";
+    private static final String ADM_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Administrador\\Administrador.txt";
+    private static final String SESSAO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
 
     public static List<Administrador> listarAdm(){
         return AdmDAO.listarAdm(ADM_FILE_NAME);
