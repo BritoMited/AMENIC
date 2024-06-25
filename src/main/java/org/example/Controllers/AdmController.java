@@ -33,7 +33,6 @@ public class AdmController {
                     return adm;
                 }
             }
-
             throw new AdmLoginFailedException("falha ao logar");
 
         }catch(AdmLoginFailedException e){
