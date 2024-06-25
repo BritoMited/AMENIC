@@ -9,10 +9,20 @@ import org.example.Controllers.AdmController;
 import org.example.Models.Filme;
 import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
+import org.example.Utils.Util;
 
 public class AdmView {
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
     private static final Logger logger = LogManager.getLogger(AdmView.class);
+
+    public static void iniciarAdm(Scanner scanner) {
+        int op;
+        do {
+            menuAdm();
+            op = Util.lerOpcoesMenu(scanner);
+            escolhaMenuAdm(scanner, op);
+        } while (op != 0);
+    }
 
     public static void menuAdm(){
         System.out.println("######################");
@@ -53,6 +63,7 @@ public class AdmView {
         switch (op){
             case 0 -> System.out.println("Saindo....");
             case 1 -> logarAdm(sc);
+            case 2 -> adicionarSessao(sc);
             default -> System.out.println("Opção errada");
 
 //            System.out.println("0- sair");
