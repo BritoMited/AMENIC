@@ -1,24 +1,36 @@
 package org.example.Views;
 
+import org.example.Controllers.AdmController;
+import org.example.Controllers.ClienteControllers;
+import org.example.Models.Usuario.Administrador;
 import org.example.Models.Usuario.Cliente;
 import org.example.Utils.Util;
 
 import java.util.Scanner;
 
 import static org.example.Controllers.ClienteControllers.*;
-import static org.example.Daos.ClienteDaos.registrarClienteDao;
 
 public class ClienteView{
 
-    public static void iniciar(Scanner scanner) {
+    public static void iniciarCliente(Scanner scanner) {
         int op;
         do {
-            MenuCliente();
+            menuCliente();
             op = Util.lerOpcoesMenu(scanner);
             escolhaMenuCliente(scanner, op);
         } while (op != 0);
     }
-    public static void MenuCliente(){
+
+    public static void iniciarClienteLogado(Cliente cliente, Scanner sc) {
+        int op;
+        do {
+            menuCLienteLogado();
+            op = Util.lerOpcoesMenu(sc);
+            escolhaMenuClienteLogado(cliente, sc, op);
+        } while (op != 0);
+    }
+
+    public static void menuCliente(){
         System.out.println("######################");
         System.out.println("#      BEM VINDO     #");
         System.out.println("#     MENU USUARIO    ");
@@ -28,17 +40,6 @@ public class ClienteView{
         System.out.println("2- Registrar");
         System.out.println("######################");
 
-    }
-
-    public static void menuClienteLogando(){
-        System.out.println("######################");
-        System.out.println("#      BEM VINDO     #");
-        System.out.println("#     MENU USUARIO    ");
-        System.out.println("######################");
-        System.out.println("0- sair");
-        System.out.println("1- Usuario");
-        System.out.println("2- Senha");
-        System.out.println("######################");
     }
 
     public static void menuCLienteLogado(){
@@ -55,15 +56,6 @@ public class ClienteView{
         System.out.println("######################");
 
     }
-    public static void menuClienteRegistrar(){
-        System.out.println("######################");
-        System.out.println("#     MENU USUARIO    ");
-        System.out.println("######################");
-        System.out.println("0- Sair");
-        System.out.println("1- Usuario");
-        System.out.println("2- Senha");
-        System.out.println("######################");
-    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -77,10 +69,43 @@ public class ClienteView{
             case 2 -> registrarUsuario(sc);
             default -> System.out.println("Opção errada");
 
-//            System.out.println("0- sair");
-//            System.out.println("1- Login");
-//            System.out.println("2- Registrar");
         }
+    }
+
+    public static void logarUsuario(Scanner sc){
+
+        Cliente cliente = null;
+        do {
+            System.out.println("Nome: ");
+            String nome = sc.nextLine();
+            System.out.println("Senha: ");
+            String senha = sc.nextLine();
+
+            cliente = ClienteControllers.logarUsuario(nome, senha);
+
+        }while(cliente == null);
+
+        iniciarClienteLogado(cliente, sc);
+
+    }
+
+    public static void registrarUsuario(Scanner sc){
+
+        System.out.println("Nome de usuario: ");
+        String nome = sc.nextLine();
+        System.out.println("Senha: ");
+        String senha = sc.nextLine();
+        System.out.println("Idade: ");
+        int idade = sc.nextInt();
+//          System.out.println("4- Estudante(true/false)");
+//          boolean estudante = sc.nextBoolean();
+//          System.out.println("5- PCD (true/false)");
+//          boolean pcd = sc.nextBoolean();
+
+        Cliente novoCliente = new Cliente(nome, senha, idade, true, true);
+
+        ClienteControllers.registrarUsuario(novoCliente);
+
     }
 
     public static void escolhamenuClienteLogando(Scanner sc, int op){
@@ -97,12 +122,10 @@ public class ClienteView{
 //            System.out.println("2- Senha");
 //            System.out.println("######################");
 
-
-
         }
     }
 
-    public static void escolhaMenuClienteLogado(Scanner sc, int op){
+    public static void escolhaMenuClienteLogado(Cliente cliente, Scanner sc, int op){
         switch (op){
             case 0 -> System.out.println("Saindo....");
             case 1 -> System.out.println("Logando....");

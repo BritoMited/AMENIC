@@ -2,6 +2,7 @@ package org.example.Views;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,14 +16,26 @@ public class AdmView {
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
     private static final Logger logger = LogManager.getLogger(AdmView.class);
 
-    public static void iniciarAdm(Scanner scanner) {
+    public static void iniciarMenuAdm(Scanner sc) {
         int op;
         do {
             menuAdm();
-            op = Util.lerOpcoesMenu(scanner);
-            escolhaMenuAdm(scanner, op);
+            op = Util.lerOpcoesMenu(sc);
+            escolhaMenuAdm(sc, op);
         } while (op != 0);
     }
+
+    public static void iniciarMenuAdmLogado(Administrador adm,Scanner sc){
+        int op;
+        do {
+            menuAdmLogado();
+            op = Util.lerOpcoesMenu(sc);
+            escolhaMenuAdmLogado(sc, op);
+        } while (op != 0);
+    }
+
+
+    // =========== MENUS =============
 
     public static void menuAdm(){
         System.out.println("######################");
@@ -34,7 +47,7 @@ public class AdmView {
         System.out.println("######################");
     }
 
-    public static void menuAdmLogado(Administrador adm){
+    public static void menuAdmLogado(){
         System.out.println("######################");
         System.out.println("#      BEM VINDO     #");
         System.out.println("#      MENU ADM      ");
@@ -58,86 +71,80 @@ public class AdmView {
         System.out.println("######################");
     }
 
+    // ====== ESCOLHAS MENU =========
+
 
     public static void escolhaMenuAdm(Scanner sc, int op) {
         switch (op){
             case 0 -> System.out.println("Saindo....");
             case 1 -> logarAdm(sc);
-            case 2 -> adicionarSessao(sc);
             default -> System.out.println("Opção errada");
 
-//            System.out.println("0- sair");
-//            System.out.println("1- Login");
+        }
+    }
+
+    public static void escolhaMenuAdmLogado(Scanner sc, int op){
+        switch (op){
+            case 0 -> System.out.println("0- Sair");
+            case 1 -> adicionarSessao(sc);
+            case 2 -> System.out.println("2- Listrar ingresos e total vendido");
+            case 3 -> System.out.println("3- imprimir ingresos");
+            default -> System.out.println("Opção errada");
+
 
         }
     }
     // ====== Funcões MenuAdm =====
 
     public static void logarAdm(Scanner sc){
+        Administrador adm = null;
+        do {
+            System.out.println("Nome: ");
+            String nome = sc.nextLine();
+            System.out.println("Senha: ");
+            String senha = sc.nextLine();
 
-        System.out.println("Nome: ");
-        String nome = sc.nextLine();
-        System.out.println("Senha: ");
-        String senha = sc.nextLine();
+            adm = AdmController.login(nome, senha);
 
-        //se logado ele vai passar como parametro para usar nessa função
-        menuAdmLogado(AdmController.login(nome, senha));
+        }while(adm == null);
 
+        iniciarMenuAdmLogado(adm, sc);
     }
 
     //
 
-    public static void escolhaMenuAdmLogado(Scanner sc, int op){
-        switch (op){
-            case 0 -> System.out.println("Saindo....");
-            case 1 -> System.out.println("Logando....");
-            case 2 -> System.out.println("Saindo....");
-            case 3 -> System.out.println("Logando....");
-            default -> System.out.println("Opção errada");
-
-//            System.out.println("0- sair");
-//            System.out.println("1- Criar sessão");
-//            System.out.println("2- Listrar ingresos e total vendido");
-//            System.out.println("3- imprimir ingresos");
-
-        }
-    }
-
-    public static void escolhaMenuAdmCriarSessao(Scanner sc, int op){
-        switch (op){
-            case 0 -> System.out.println("Saindo....");
-            case 1 -> adicionarSessao(sc);
-            default -> System.out.println("Opção errada");
-
-//            System.out.println("0- sair");
-//            System.out.println("1- Digite o nome do filme");
-//            System.out.println("2- Digite o genero do filme");
-//            System.out.println("3- Digite o horario da sessao: (dd/mm/yy HH:mm)");
-//            System.out.println("4- Digite o valor da sessao");
-//            System.out.println("5- Digite o numero da sessao");
-//            System.out.println("######################");
-
-        }
-    }
 
     // ====== Função ADM criar sessao =====
 
     public static void adicionarSessao(Scanner sc){
-        System.out.println("1- Digite o nome do filme");
-        String titulo = sc.nextLine();
-        System.out.println("2- Digite o genero do filme");
-        String genero = sc.nextLine();
-        System.out.println("3- Digite o horario da sessao: (dd/mm/yy HH:mm)");
-        LocalDateTime horarioSessao = LocalDateTime.parse(sc.nextLine(), dtf);
-        System.out.println("4- Digite o valor da sessao");
-        Double valor = sc.nextDouble();
-        System.out.println("5- Digite o numero da sessao");
-        int n = sc.nextInt();
 
-        Sessao sessao = new Sessao(new Filme(titulo,genero), horarioSessao, valor);
-        sessao.setId(n);
+        try {
+            System.out.println("1- Digite o nome do filme");
+            String titulo = sc.nextLine();
+            System.out.println("2- Digite o genero do filme");
+            String genero = sc.nextLine();
 
-        AdmController.criarSessao(sessao);
+            LocalDateTime horarioSessao = null;
+            while (horarioSessao == null) {
+                try {
+                    System.out.println("3- Digite o horario da sessao: (dd/MM/yy HH:mm)");
+                    horarioSessao = LocalDateTime.parse(sc.nextLine(), dtf);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato de data/hora inválido. Tente novamente.");
+                }
+            }
+            System.out.println("4- Digite o valor da sessao");
+            Double valor = sc.nextDouble();
+            System.out.println("5- Digite o numero da sessao");
+            int n = sc.nextInt();
+
+            Sessao sessao = new Sessao(new Filme(titulo, genero), horarioSessao, valor);
+            sessao.setId(n);
+            AdmController.criarSessao(sessao);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+
     }
 
 
