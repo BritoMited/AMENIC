@@ -1,9 +1,12 @@
 package org.example.Controllers;
 
-import org.example.Daos.ClienteDaos;
+import org.example.Daos.AdmDAO;
+import org.example.Daos.ClienteDAO;
+import org.example.Exceptions.AdmLoginFailedException;
+import org.example.Exceptions.ClienteLoginFailedException;
+import org.example.Models.Usuario.Administrador;
 import org.example.Models.Usuario.Cliente;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,32 +15,33 @@ public class ClienteControllers {
 
     private static final String CLIENTE_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Cliente\\Cliente.txt";
 
-    public static void logarUsuario(Scanner sc){
-
-        System.out.println("1- Usuario");
-        String nome = sc.nextLine();
-        System.out.println("2- Senha");
-        String senha = sc.nextLine();
-
+    public static List<Cliente> listarCliente(){
+        return ClienteDAO.listarCliente(CLIENTE_FILE_NAME);
     }
-    public static void registrarUsuario(Scanner sc){
 
-          System.out.println("1- Usuario");
-          String nome = sc.nextLine();
-          System.out.println("2- Senha");
-          String senha = sc.nextLine();
-          System.out.println("3- Idade");
-          int idade = sc.nextInt();
-//          System.out.println("4- Estudante(true/false)");
-//          boolean estudante = sc.nextBoolean();
-//          System.out.println("5- PCD (true/false)");
-//          boolean pcd = sc.nextBoolean();
 
-          Cliente novoCliente = new Cliente(nome, senha, idade, true, true);
-//          List<Cliente> listaCliente = new ArrayList<>();
-//          listaCliente.add(novoCliente);
+    public static Cliente logarUsuario(String nome, String senha){
 
-          ClienteDaos.registrarClienteDao(CLIENTE_FILE_NAME, novoCliente);
+        try{
+            var listaCliente = listarCliente();
+
+            for(Cliente cliente: listaCliente){
+                if(nome.equals(cliente.getNome()) && senha.equals(cliente.getSenha())){
+                    return cliente;
+                }
+            }
+
+            throw new ClienteLoginFailedException("falha ao logar");
+
+        }catch(ClienteLoginFailedException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return null;
+    }
+    public static void registrarUsuario(Cliente novoCliente){
+
+          ClienteDAO.registrarClienteDao(CLIENTE_FILE_NAME, novoCliente);
 
         System.out.println("Registro realizado!");
     }
