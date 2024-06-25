@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class ClienteControllers {
 
 
-    private static final String CLIENTE_FILE_NAME = "COLOCAR ARQUIVO";
+    private static final String CLIENTE_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Cliente\\Cliente.txt";
 
     public static void logarUsuario(Scanner sc){
 
@@ -28,15 +28,16 @@ public class ClienteControllers {
           String senha = sc.nextLine();
           System.out.println("3- Idade");
           int idade = sc.nextInt();
-          System.out.println("4- Estudante(true/false)");
-          boolean estudante = sc.nextBoolean();
-          System.out.println("5- PCD (true/flase)");
-          boolean pcd = sc.nextBoolean();
+//          System.out.println("4- Estudante(true/false)");
+//          boolean estudante = sc.nextBoolean();
+//          System.out.println("5- PCD (true/false)");
+//          boolean pcd = sc.nextBoolean();
 
-          Cliente novoCliente = new Cliente(nome, senha, idade, estudante, pcd);
-          List<Cliente> listaCliente = new ArrayList<>();
-          listaCliente.add(novoCliente);
-          ClienteDaos.registrarClienteDao(CLIENTE_FILE_NAME, listaCliente);
+          Cliente novoCliente = new Cliente(nome, senha, idade, true, true);
+//          List<Cliente> listaCliente = new ArrayList<>();
+//          listaCliente.add(novoCliente);
+
+          ClienteDaos.registrarClienteDao(CLIENTE_FILE_NAME, novoCliente);
 
         System.out.println("Registro realizado!");
     }
