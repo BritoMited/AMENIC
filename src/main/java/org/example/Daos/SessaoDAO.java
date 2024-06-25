@@ -42,7 +42,7 @@ public class SessaoDAO {
 
         Integer id = Integer.valueOf(fields[0]);
         Filme filme = new Filme(fields[1], fields[2]);
-        LocalDateTime horario = LocalDateTime.parse(fields[3], dtf);
+        LocalDateTime horario = LocalDateTime.parse(fields[3]);
         Double valor = Double.valueOf(fields[4]);
 
         var sessao = new Sessao(filme, horario, valor);
@@ -57,7 +57,8 @@ public class SessaoDAO {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName, true))) {
      //       logger.info("Escrendo as informações no arquivo .txt");
 
-            bufferedWriter.write(sessao.getId()+";"+sessao.getFilme()+";"+sessao.getHorario()
+            bufferedWriter.write(sessao.getId()+";"+sessao.getFilme()
+                                +";"+sessao.getHorario()
                                 +";"+sessao.getValor());
             bufferedWriter.newLine();
 
