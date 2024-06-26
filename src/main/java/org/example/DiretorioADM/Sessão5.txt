@@ -1,0 +1,40 @@
+### Ingresso ###
+Id do Ingresso: c856d0b8-d8c2-4623-a748-08140b688bcd
+Id da sessão: 5
+Titulo do filme: 3 jogadores demais
+Gênero: comedia
+Data da sessão: 12/05/25 12:40
+Cadeira: G2
+###############
+### Ingresso ###
+Id do Ingresso: 74ccd708-ab21-448d-aef1-2e4eb63881ca
+Id da sessão: 5
+Titulo do filme: 3 jogadores demais
+Gênero: comedia
+Data da sessão: 12/05/25 12:40
+Cadeira: F3
+###############
+### Ingresso ###
+Id do Ingresso: b51bfd97-0599-437c-89eb-8870bd8bba8b
+Id da sessão: 5
+Titulo do filme: 3 jogadores demais
+Gênero: comedia
+Data da sessão: 12/05/25 12:40
+Cadeira: F5
+###############
+### Ingresso ###
+Id do Ingresso: 725dba36-a0f0-43fe-a8fd-dbc9210f520e
+Id da sessão: 5
+Titulo do filme: 3 jogadores demais
+Gênero: comedia
+Data da sessão: 12/05/25 12:40
+Cadeira: F8
+###############
+### Ingresso ###
+Id do Ingresso: d3851222-0e73-47bb-b5b3-4012899e25ce
+Id da sessão: 5
+Titulo do filme: 3 jogadores demais
+Gênero: comedia
+Data da sessão: 12/05/25 12:40
+Cadeira: H8
+###############

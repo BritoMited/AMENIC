@@ -1,0 +1,8 @@
+### Ingresso ###
+Id do Ingresso: 1e885726-3da9-4bad-ab4d-978fdecf5d12
+Id da sessão: 1
+Titulo do filme: f
+Gênero: f
+Data da sessão: 12/12/22 14:15
+Cadeira: F2
+###############

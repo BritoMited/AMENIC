@@ -120,16 +120,16 @@ public class AdmController {
         FileManager fileManager = new FileManager();
 
 
-        File diretorio = fileManager.criarPasta("C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\DiretorioADM");
+        File diretorio = fileManager.criarPasta("C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\DiretorioADM");
 
         System.out.println("Digite o número da sessão que deseja imprimir o ingresso: ");
         Integer id_sessao = sc.nextInt();
 
-        List<Ingresso> ingressos = buscarIngressoPorIdDao (SESSAO_FILE_NAME , id_sessao);
+        List<Ingresso> ingressos = buscarIngressoPorIdDao(INGRESSO_FILE_NAME , id_sessao);
 
         for (Ingresso ingresso : ingressos) {
             try {
-                File file = fileManager.criarArquivo(diretorio, "Sessão" + ingresso.getId() + ".txt");
+                File file = fileManager.criarArquivo(diretorio, "Sessão" + id_sessao + ".txt");
                 FileWriter fileWriter = new FileWriter(file, true);
                 PrintWriter printWriter = new PrintWriter(fileWriter);
 
@@ -140,7 +140,7 @@ public class AdmController {
                 printWriter.println("Gênero: " + ingresso.getFilme().getGenero());
                 printWriter.println("Data da sessão: " + ingresso.getHorario().format(dtf));
                 printWriter.println("Cadeira: " + ingresso.getCadeira().getNumero());
-                printWriter.println("### Ingresso ###");
+                printWriter.println("###############");
 
                 printWriter.close();
                 System.out.println("Ingresso impresso com sucesso em: " + file.getAbsolutePath());

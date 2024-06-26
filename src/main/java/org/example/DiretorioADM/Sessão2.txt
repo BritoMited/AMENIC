@@ -1,0 +1,8 @@
+### Ingresso ###
+Id do Ingresso: 1b01cd2c-2fea-43bb-a4d1-3a5d3c72e848
+Id da sessão: 2
+Titulo do filme: d
+Gênero: d
+Data da sessão: 12/12/22 14:15
+Cadeira: A2
+###############
