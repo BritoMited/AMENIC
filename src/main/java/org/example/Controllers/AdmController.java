@@ -4,6 +4,7 @@ import org.example.Daos.AdmDAO;
 import org.example.Daos.SessaoDAO;
 import org.example.Exceptions.AdmLoginFailedException;
 import org.example.Exceptions.SessaoAlreadyExistsException;
+import org.example.Models.Cadeira;
 import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
 
@@ -63,7 +64,7 @@ public class AdmController {
                     throw new SessaoAlreadyExistsException("já existe uma sessao com esse id");
                 }
             }
-
+            sessao.gerarCadeiras(8, 8);
             SessaoDAO.criarSessaoDAO(SESSAO_FILE_NAME, sessao);
 
         }catch(SessaoAlreadyExistsException e){
@@ -82,5 +83,20 @@ public class AdmController {
 
     public static void removerFilme(){
 
+    }
+
+    public static Sessao buscarSessaoPorId(Integer id){
+        try{
+            for (Sessao s : listarSessao()){
+                if(s.getId().equals(id)){
+                    return s;
+                }
+            }
+            throw new SessaoAlreadyExistsException("Sessao nao encotrada");
+
+        }catch (SessaoAlreadyExistsException e){
+            System.out.println("Erro:" + e.getMessage());
+        }
+        return null;
     }
 }
