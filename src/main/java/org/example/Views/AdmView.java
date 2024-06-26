@@ -87,6 +87,7 @@ public class AdmView {
             case 0 -> System.out.println("0- Sair");
             case 1 -> adicionarSessao(sc);
             case 2 ->{
+
                     System.out.println("Digite o id da sessao que quer alterar");
                     int idSessao = Integer.parseInt(sc.nextLine());
 
@@ -96,15 +97,22 @@ public class AdmView {
                     System.out.println("Digite o genero do filme");
                     String genero = sc.nextLine();
 
-                    System.out.println("Digite o horario da sessao (dd/ MM/yy HH:mm)");
-                    String horarioSessao = sc.nextLine();
-                    LocalDateTime horario = LocalDateTime.parse(horarioSessao, dtf);
+
+                    LocalDateTime horarioSessao = null;
+                    while (horarioSessao == null) {
+                        try {
+                            System.out.println("Digite o horario da sessao: (dd/MM/yy HH:mm)");
+                            horarioSessao = LocalDateTime.parse(sc.nextLine(), dtf);
+                        } catch (DateTimeParseException e) {
+                            logger.error("Formato de data/hora inválido. Tente novamente.");
+                        }
+                    }
 
                     System.out.println("Digite o valor da sessao");
                     Double valor = Double.parseDouble(sc.nextLine());
 
                     Filme filme = new Filme(titulo,genero);
-                    Sessao sessaoAlterada = new Sessao(filme, horario, valor);
+                    Sessao sessaoAlterada = new Sessao(filme, horarioSessao, valor);
                     sessaoAlterada.setId(idSessao);
 
                     SessaoDAO.alterarSessaoDao("C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt" , sessaoAlterada);
@@ -159,7 +167,7 @@ public class AdmView {
                     System.out.println("3- Digite o horario da sessao: (dd/MM/yy HH:mm)");
                     horarioSessao = LocalDateTime.parse(sc.nextLine(), dtf);
                 } catch (DateTimeParseException e) {
-                    System.out.println("Formato de data/hora inválido. Tente novamente.");
+                    logger.error("Formato de data/hora inválido. Tente novamente.");
                 }
             }
             System.out.println("4- Digite o valor da sessao");
@@ -171,7 +179,7 @@ public class AdmView {
             sessao.setId(n);
             AdmController.criarSessao(sessao);
         } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+            logger.error("Ocorreu ao criar sessão");
         }
 
     }

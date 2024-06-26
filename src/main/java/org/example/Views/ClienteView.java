@@ -2,16 +2,23 @@ package org.example.Views;
 
 import org.example.Controllers.AdmController;
 import org.example.Controllers.ClienteControllers;
+import org.example.Exceptions.ClienteException;
 import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
 import org.example.Models.Usuario.Cliente;
 import org.example.Utils.Util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static org.example.Controllers.ClienteControllers.*;
 
 public class ClienteView{
+
+    private static final Logger logger = LogManager.getLogger(ClienteView.class);
 
     public static void iniciarCliente(Scanner scanner) {
         int op;
@@ -30,7 +37,7 @@ public class ClienteView{
             escolhaMenuClienteLogado(cliente, sc, op);
         } while (op != 0);
     }
-
+//mexer
     public static void iniciarClienteSessaoLogado(Cliente cliente, Scanner sc) {
         AdmController.printListaSessao();
         int op;
@@ -44,7 +51,7 @@ public class ClienteView{
     public static void menuCliente(){
         System.out.println("######################");
         System.out.println("#      BEM VINDO     #");
-        System.out.println("#     MENU USUARIO    ");
+        System.out.println("#     MENU USUARIO   #");
         System.out.println("######################");
         System.out.println("0- sair");
         System.out.println("1- Login");
@@ -55,7 +62,7 @@ public class ClienteView{
 
     public static void menuCLienteLogado(){
         System.out.println("######################");
-        System.out.println("#     MENU USUARIO    ");
+        System.out.println("#     MENU USUARIO   # ");
         System.out.println("######################");
         System.out.println("0- sair");
         System.out.println("1- Listar sessões disponiveis");
@@ -68,7 +75,7 @@ public class ClienteView{
 
     public static void menuCLienteSessaoLogado(){
         System.out.println("######################");
-        System.out.println("#     MENU USUARIO    ");
+        System.out.println("#     MENU USUARIO   #");
         System.out.println("######################");
         System.out.println("0- sair");
         System.out.println("1- Comprar ingresso");
@@ -87,7 +94,7 @@ public class ClienteView{
             case 0 -> System.out.println("Saindo....");
             case 1 -> logarUsuario(sc);
             case 2 -> registrarUsuario(sc);
-            default -> System.out.println("Opção errada");
+            default -> System.out.println("Aconteceu um erro ao digitar");
 
         }
     }
@@ -96,6 +103,7 @@ public class ClienteView{
 
         Cliente cliente = null;
         do {
+
             System.out.println("Nome: ");
             String nome = sc.nextLine();
             System.out.println("Senha: ");
@@ -115,17 +123,20 @@ public class ClienteView{
         String nome = sc.nextLine();
         System.out.println("Senha: ");
         String senha = sc.nextLine();
-        System.out.println("Idade: ");
-        int idade = sc.nextInt();
-        System.out.println("4- Estudante(true/false)");
-        boolean estudante = sc.nextBoolean();
-        System.out.println("5- PCD (true/false)");
-        boolean pcd = sc.nextBoolean();
 
-        Cliente novoCliente = new Cliente(nome, senha, idade, estudante, pcd);
+        try {
+            System.out.println("Idade: ");
+            int idade = sc.nextInt();
+            System.out.println("4- Estudante(true/false)");
+            boolean estudante = sc.nextBoolean();
+            System.out.println("5- PCD (true/false)");
+            boolean pcd = sc.nextBoolean();
 
-        ClienteControllers.registrarUsuario(novoCliente);
-
+            Cliente novoCliente = new Cliente(nome, senha, idade, estudante, pcd);
+            ClienteControllers.registrarUsuario(novoCliente);
+        } catch (InputMismatchException e){
+            logger.error("Ocorreu ao registrar usuario");
+        }
     }
 
 
@@ -136,13 +147,9 @@ public class ClienteView{
             case 2 -> ClienteControllers.rembolsarIngresso(cliente, sc);
 //            case 3 -> imprimirIngresso();
             case 4 -> verificarIngressos(sc, cliente);
-            default -> System.out.println("Opção errada");
+            default -> System.out.println("Aconteceu um erro ao digitar ");
 
 
-//        System.out.println("0- sair");
-//        System.out.println("1- Listar sessões disponiveis");
-//        System.out.println("2- listar cadeiras disponiveis");
-//        System.out.println("3- Comprar ingresso");
 
         }
     }
@@ -152,13 +159,9 @@ public class ClienteView{
         switch (op){
             case 0 -> System.out.println("Saindo....");
             case 1 -> ClienteControllers.comprarIngresso(cliente, sc);
-            default -> System.out.println("Opção errada");
+            default -> System.out.println("Aconteceu um erro ao digitar");
 
 
-//        System.out.println("0- sair");
-//        System.out.println("1- Listar sessões disponiveis");
-//        System.out.println("2- listar cadeiras disponiveis");
-//        System.out.println("3- Comprar ingresso");
 
         }
     }
