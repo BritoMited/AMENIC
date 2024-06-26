@@ -2,8 +2,10 @@ package org.example.Controllers;
 
 import org.example.Daos.AdmDAO;
 import org.example.Daos.ClienteDAO;
+import org.example.Daos.IngressosDAO;
 import org.example.Exceptions.AdmLoginFailedException;
 import org.example.Exceptions.ClienteLoginFailedException;
+import org.example.Models.Ingresso.Ingresso;
 import org.example.Models.Usuario.Administrador;
 import org.example.Models.Usuario.Cliente;
 
@@ -14,11 +16,15 @@ public class ClienteControllers {
 
 
     private static final String CLIENTE_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Cliente\\Cliente.txt";
+    private static final String INGRESSO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Ingressos\\Ingressos.txt";
 
     public static List<Cliente> listarCliente(){
         return ClienteDAO.listarCliente(CLIENTE_FILE_NAME);
     }
 
+    public static List<Ingresso> listarIngresso(){
+        return IngressosDAO.listarIngressos(INGRESSO_FILE_NAME);
+    }
 
     public static Cliente logarUsuario(String nome, String senha){
 

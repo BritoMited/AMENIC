@@ -23,6 +23,12 @@ public class AdmController {
         return SessaoDAO.listarSessao(SESSAO_FILE_NAME);
     }
 
+    public static void printListaSessao(){
+        for(Sessao s : listarSessao()){
+            System.out.println(s);
+        }
+    }
+
     public static Administrador login(String nome, String senha){
 
         try{
