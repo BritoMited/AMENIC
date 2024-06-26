@@ -14,15 +14,16 @@ import org.example.Models.Sessao;
 import org.example.Models.Usuario.Cliente;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class ClienteControllers {
 
 
-    private static final String CLIENTE_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Cliente\\Cliente.txt";
-    private static final String INGRESSO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Ingressos\\Ingressos.txt";
-    private static final String SESSAO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
+    private static final String CLIENTE_FILE_NAME = "C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Cliente\\Cliente.txt";
+    private static final String INGRESSO_FILE_NAME = "C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Ingressos\\Ingressos.txt";
+    private static final String SESSAO_FILE_NAME = "C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
 
     public static List<Cliente> listarCliente(){
         return ClienteDAO.listarCliente(CLIENTE_FILE_NAME);
@@ -106,12 +107,11 @@ public class ClienteControllers {
 
         int op;
         System.out.println("Escolha a forma de pagamento:");
-        System.out.println("0. Sair");
         System.out.println("1. PayPal");
         System.out.println("2. Cartão");
 
         do {
-
+            System.out.println("0. Sair");
             op = sc.nextInt();
 
             switch (op) {
@@ -134,20 +134,29 @@ public class ClienteControllers {
 
 
         public static void rembolsarIngresso(Cliente cliente, Scanner sc){
+
+        try {
             Sessao sessao;
-            do{
+            do {
                 System.out.println("Informe a sessão que deseja reembolsar o ingresso: ");
-                Integer id_sessao = sc.nextInt();
 
-                sessao = AdmController.buscarSessaoPorId(id_sessao);
-            }while (sessao == null);
+                    Integer id_sessao = sc.nextInt();
 
-            IngressosDAO.removerIngressoDao(INGRESSO_FILE_NAME, cliente.getId(), sessao.getId());
+                    sessao = AdmController.buscarSessaoPorId(id_sessao);
+                }
+                while (sessao == null) ;
+
+                IngressosDAO.removerIngressoDao(INGRESSO_FILE_NAME, cliente.getId(), sessao.getId());
+
+        }catch (InputMismatchException e){
+                System.out.println("Sessão não encontrada " + e.getMessage());
+            }
+
 
         }
-//    public static void imprimirIngresso(){
-//
-//    }
+
+
+    //mexer
         public static void verificarIngressos(Scanner sc, Cliente cliente){
             System.out.println("Digite o numero da sessão que deseja verificar o ingresso: ");
             Integer id_sessao = sc.nextInt();
@@ -155,11 +164,13 @@ public class ClienteControllers {
             List<Ingresso> ingressos = IngressosDAO.buscarIngressoPorIdDao(INGRESSO_FILE_NAME, cliente.getId(), id_sessao);
 
             for (Ingresso ingresso : ingressos){
-                System.out.println("Id do ingresso: " + ingresso.getId());
-                System.out.println("Id do ingresso: " + ingresso.getId_sessao());
-                System.out.println("Id do ingresso: " + ingresso.getId_cliente());
-                System.out.println("Id do ingresso: " + ingresso.getFilme().getTitulo());
-                System.out.println("Id do ingresso: " + ingresso.getFilme().getGenero());
+                System.out.println("######################");
+                System.out.println("Id do Ingresso  : " + ingresso.getId());
+                System.out.println("Id da sessão    : " + ingresso.getId_sessao());
+                System.out.println("Id do Cliente   : " + ingresso.getId_cliente());
+                System.out.println("Titulo do filme : " + ingresso.getFilme().getTitulo());
+                System.out.println("Genero          : " + ingresso.getFilme().getGenero());
+
             }
 
         }

@@ -1,5 +1,7 @@
 package org.example.Controllers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.Daos.AdmDAO;
 import org.example.Daos.SessaoDAO;
 import org.example.Exceptions.AdmException;
@@ -11,9 +13,11 @@ import java.util.List;
 
 public class AdmController {
 
+//criar uma ex disso para arquivo nao encontrado
 
-    private static final String ADM_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Administrador\\Administrador.txt";
-    private static final String SESSAO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
+    private static final Logger logger = LogManager.getLogger(AdmController.class);
+    private static final String ADM_FILE_NAME = "C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Administrador\\Administrador.txt";
+    private static final String SESSAO_FILE_NAME = "C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
 
     public static List<Administrador> listarAdm(){
         return AdmDAO.listarAdm(ADM_FILE_NAME);
@@ -42,7 +46,7 @@ public class AdmController {
             throw new AdmException("falha ao logar");
 
         }catch(AdmException e){
-            System.out.println("Error: " + e.getMessage());
+            logger.error("Error: " + e.getMessage());
         }
 
 
@@ -63,7 +67,7 @@ public class AdmController {
             SessaoDAO.criarSessaoDAO(SESSAO_FILE_NAME, sessao);
 
         }catch(SessaoException e){
-            System.out.println("Error: " + e.getMessage());
+            logger.error("Error: " + e.getMessage());
         }
 
     }
@@ -77,7 +81,7 @@ public class AdmController {
             throw new SessaoException("Sessao nao encotrada");
 
         }catch (SessaoException e){
-            System.out.println("Erro:" + e.getMessage());
+            logger.error("Erro:" + e.getMessage());
         }
         return null;
     }
