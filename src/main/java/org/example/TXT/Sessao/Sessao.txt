@@ -1,5 +1,4 @@
-1;brito;comedia;2022-12-12T14:15;30.0
-2;rgre;gre;2012-12-12T12:12;45.0
-3;tyr;ytr;2012-12-12T12:12;45.0
-4;3 jogadores demais;comedia;2025-05-12T12:40;39.0
-5;era do gelo;animação;2024-06-26T13:00;5.0
+1;brito;comedia;12/12/22 14:15;30.0
+2;lol;comedia;02/12/23 20:34;30.0
+4;3 jogadores demais;comedia;12/05/25 12:40;39.0
+5;era do gelo;animação;26/06/24 13:00;5.0
