@@ -2,13 +2,11 @@ package org.example.Controllers;
 
 import org.example.Daos.AdmDAO;
 import org.example.Daos.SessaoDAO;
-import org.example.Exceptions.AdmLoginFailedException;
-import org.example.Exceptions.SessaoAlreadyExistsException;
-import org.example.Models.Cadeira;
+import org.example.Exceptions.AdmException;
+import org.example.Exceptions.SessaoException;
 import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
 
-import java.io.IOException;
 import java.util.List;
 
 public class AdmController {
@@ -41,9 +39,9 @@ public class AdmController {
                     return adm;
                 }
             }
-            throw new AdmLoginFailedException("falha ao logar");
+            throw new AdmException("falha ao logar");
 
-        }catch(AdmLoginFailedException e){
+        }catch(AdmException e){
             System.out.println("Error: " + e.getMessage());
         }
 
@@ -58,13 +56,13 @@ public class AdmController {
 
             for(Sessao s: listaSessoes){
                 if(s.getId().equals(sessao.getId())){
-                    throw new SessaoAlreadyExistsException("já existe uma sessao com esse id");
+                    throw new SessaoException("já existe uma sessao com esse id");
                 }
             }
             sessao.gerarCadeiras(8, 8);
             SessaoDAO.criarSessaoDAO(SESSAO_FILE_NAME, sessao);
 
-        }catch(SessaoAlreadyExistsException e){
+        }catch(SessaoException e){
             System.out.println("Error: " + e.getMessage());
         }
 
@@ -76,9 +74,9 @@ public class AdmController {
                     return s;
                 }
             }
-            throw new SessaoAlreadyExistsException("Sessao nao encotrada");
+            throw new SessaoException("Sessao nao encotrada");
 
-        }catch (SessaoAlreadyExistsException e){
+        }catch (SessaoException e){
             System.out.println("Erro:" + e.getMessage());
         }
         return null;
