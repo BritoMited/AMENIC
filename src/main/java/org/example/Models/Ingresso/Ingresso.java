@@ -9,21 +9,32 @@ import org.example.Models.Usuario.Cliente;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public abstract class Ingresso {
+public class Ingresso {
 
     private UUID id;
     private Integer id_sessao;
+    private Integer id_cliente;
     private Filme filme;
     private Cadeira cadeira;
     private LocalDateTime horario;
-    private Cliente cliente;
+    private Double valor;
 
-    public Ingresso(UUID id, Filme filme, Cadeira cadeira, Cliente cliente, LocalDateTime horario) {
-        this.id = id;
+    public Ingresso(Integer id_sessao, Integer id_cliente, Filme filme, Cadeira cadeira, LocalDateTime horario, Double valor) {
+        this.id = UUID.randomUUID();
+        this.id_sessao = id_sessao;
+        this.id_cliente = id_cliente;
         this.filme = filme;
         this.cadeira = cadeira;
-        this.cliente = cliente;
-        this.horario = horario; // talvez tenha como pegar a hora .now
+        this.horario = horario;
+        this.valor = valor;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public Integer getId_sessao() {
@@ -34,12 +45,12 @@ public abstract class Ingresso {
         this.id_sessao = id_sessao;
     }
 
-    public UUID getId() {
-        return id;
+    public Integer getId_cliente() {
+        return id_cliente;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setId_cliente(Integer id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     public Filme getFilme() {
@@ -66,11 +77,11 @@ public abstract class Ingresso {
         this.horario = horario;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Double getValor() {
+        return valor;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 }
