@@ -7,13 +7,14 @@ import org.example.Exceptions.SessaoAlreadyExistsException;
 import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
 
+import java.io.IOException;
 import java.util.List;
 
 public class AdmController {
 
 
-    private static final String ADM_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Administrador\\Administrador.txt";
-    private static final String SESSAO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
+    private static final String ADM_FILE_NAME = "C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Administrador\\Administrador.txt";
+    private static final String SESSAO_FILE_NAME = "C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
 
     public static List<Administrador> listarAdm(){
         return AdmDAO.listarAdm(ADM_FILE_NAME);
@@ -49,10 +50,6 @@ public class AdmController {
         return null;
     }
 
-    public void registrar() {
-
-    }
-
     public static void criarSessao(Sessao sessao){
 
         try{
@@ -72,15 +69,8 @@ public class AdmController {
 
     }
 
-    public static void listarFilme(){
 
-    }
 
-    public static void alterarFilme(){
 
-    }
 
-    public static void removerFilme(){
-
-    }
 }
