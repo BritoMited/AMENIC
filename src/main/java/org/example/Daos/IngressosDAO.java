@@ -30,7 +30,7 @@ public class IngressosDAO {
 
             // Declaração de variaveis locais do metodo
 
-            String linha = null;
+            String linha;
 
             List<Ingresso> ingressos = new ArrayList<>();
             // Laço de repetição para leitura do arquivo de tarefas
@@ -51,9 +51,9 @@ public class IngressosDAO {
     private static Ingresso parse(String linha) {
         var fields = linha.split(";");
         // Gerando UUID from String
-        var uuid = UUID.fromString(fields[0].toString());
+        var uuid = UUID.fromString(fields[0]);
         Integer id_sessao = Integer.valueOf(fields[1]);
-        UUID id_cliente = UUID.fromString(fields[2].toString());
+        UUID id_cliente = UUID.fromString(fields[2]);
         Filme filme = new Filme(fields[3], fields[4]);
         Cadeira cadeira = new Cadeira(fields[5], Boolean.valueOf(fields[6]), Boolean.valueOf(fields[7]));
         LocalDateTime horario = LocalDateTime.parse(fields[8], dtf);
