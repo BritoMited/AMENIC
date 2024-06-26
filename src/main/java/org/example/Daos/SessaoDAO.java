@@ -2,14 +2,12 @@ package org.example.Daos;
 
 import org.example.Models.Filme;
 import org.example.Models.Sessao;
-import org.example.Models.Usuario.Administrador;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class SessaoDAO {
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
@@ -25,9 +23,9 @@ public class SessaoDAO {
             // Laço de repetição para leitura do arquivo de tarefas
 
             while ((linha = br.readLine()) != null) {
-                var adm = parse(linha);
+                var sessao = parse(linha);
 
-                sessoes.add(adm);
+                sessoes.add(sessao);
             }
             return sessoes;
         } catch (IOException e) {
