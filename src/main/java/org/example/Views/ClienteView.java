@@ -59,9 +59,9 @@ public class ClienteView{
         System.out.println("######################");
         System.out.println("0- sair");
         System.out.println("1- Listar sessões disponiveis");
-        System.out.println("4- Rembolsar ingresso");
-        System.out.println("5- Imprimir ingresso");
-        System.out.println("6- Verificar ingresso");
+        System.out.println("2- Rembolsar ingresso");
+        System.out.println("3- Imprimir ingresso");
+        System.out.println("4- Verificar ingresso");
         System.out.println("######################");
 
     }
@@ -117,12 +117,12 @@ public class ClienteView{
         String senha = sc.nextLine();
         System.out.println("Idade: ");
         int idade = sc.nextInt();
-//          System.out.println("4- Estudante(true/false)");
-//          boolean estudante = sc.nextBoolean();
-//          System.out.println("5- PCD (true/false)");
-//          boolean pcd = sc.nextBoolean();
+        System.out.println("4- Estudante(true/false)");
+        boolean estudante = sc.nextBoolean();
+        System.out.println("5- PCD (true/false)");
+        boolean pcd = sc.nextBoolean();
 
-        Cliente novoCliente = new Cliente(nome, senha, idade, true, true);
+        Cliente novoCliente = new Cliente(nome, senha, idade, estudante, pcd);
 
         ClienteControllers.registrarUsuario(novoCliente);
 
@@ -133,10 +133,9 @@ public class ClienteView{
         switch (op){
             case 0 -> System.out.println("Saindo....");
             case 1 -> iniciarClienteSessaoLogado(cliente, sc);
-            case 2 -> registrarUsuario(sc);
-//            case 3 -> rembolsarIngresso();
-//            case 4 -> imprimirIngresso();
-//            case 5 -> verificarIngressos();
+            case 2 -> ClienteControllers.rembolsarIngresso(cliente, sc);
+//            case 3 -> imprimirIngresso();
+            case 4 -> verificarIngressos(sc, cliente);
             default -> System.out.println("Opção errada");
 
 
