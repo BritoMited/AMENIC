@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class Sessao {
     private Integer id;
     private Filme filme;
@@ -21,8 +23,6 @@ public class Sessao {
         this.valor = valor;
     }
 
-    public Sessao(Filme filme) {
-    }
 
     public Integer getId() {
         return id;
@@ -66,12 +66,17 @@ public class Sessao {
 
     public void gerarCadeiras(int numLinhas, int assentosPorLinha) {
         this.cadeiras = new ArrayList<>();
+        // Lista de números de cadeiras PCD
+        List<String> cadeirasPcd = List.of("A1", "A2", "B1", "B2", "A7", "A8", "B7", "B8");
 
         for (char row = 'A'; row < 'A' + numLinhas; row++) {
             for (int num = 1; num <= assentosPorLinha; num++) {
                 Cadeira cadeira = new Cadeira();
                 cadeira.setNumero(String.valueOf(row) + num);
-                cadeira.setPcd(true);
+                // Verifica se a cadeira é PCD
+                if (cadeirasPcd.contains(cadeira.getNumero())) {
+                    cadeira.setPcd(true);
+                }
                 cadeira.setOcupado(false);
                 cadeiras.add(cadeira);
             }
@@ -89,15 +94,40 @@ public class Sessao {
     }
 
     // Lista as cadeiras na sessão
+    //mexer
     public void listarCadeiras(){
         int i = 0;
         System.out.println("--------------------------------------");
         for(Cadeira c: getCadeiras()) {
-            System.out.print(c + " ");
+
+            String[] partes = c.toString().split(";");
+
+            if (partes[1].equals("true")){
+                    partes[1] = "♿";
+                }
+            if (partes[1].equals("false")){
+                partes[1] = "  ";
+            }
+
+            if (partes[2].equals("true")){
+                partes[2] = "●";
+            }
+
+            if (partes[2].equals("false")){
+                partes[2] = "○";
+            }
+
+            String cadeiraString = "(" + partes[0] + " " + partes [1] + " " + partes[2] + ")";
+            System.out.print(cadeiraString + " ");
             i++;
             if(i % 8 == 0) System.out.println();
             i-=8;
+
+
+
+
         }
+
         System.out.println("--------------------------------------");
     }
 
@@ -110,11 +140,14 @@ public class Sessao {
         return false;
     }
 
+    // mexer
     @Override
     public String toString() {
         return
-                "filme: " + filme +
-                ", horario=" + horario +
-                ", valor=" + valor;
+                "Id da Sessão: "+ id +
+                "   Titulo: " + filme.getTitulo() +
+                "   Gênero: " + filme.getGenero() +
+                "   Horario: " + horario.format(dtf) +
+                "   Preço: R$" + valor;
     }
 }
