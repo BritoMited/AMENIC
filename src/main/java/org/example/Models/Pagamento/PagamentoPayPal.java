@@ -13,9 +13,9 @@ public class PagamentoPayPal implements Pagamento{
     public void gerarIngresso(List<Ingresso> listaIngresso, Cliente cliente) {
         for (Ingresso ingresso :listaIngresso){
             if(verificarTipoIngresso(cliente.getEstudante(), cliente.getIdade())){
-                ingresso.setValor(ingresso.getValor()* 1.10/2);
+                ingresso.setValor(ingresso.getValor()* 1.5/2);
             }else{
-                ingresso.setValor(ingresso.getValor()* 1.10);
+                ingresso.setValor(ingresso.getValor()* 1.5);
             }
             criarIngresso(ingresso);
         }
