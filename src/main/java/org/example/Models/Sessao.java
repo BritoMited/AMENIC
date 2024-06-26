@@ -74,14 +74,11 @@ public class Sessao {
     }
 
 
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public String toString() {
+        return
+                "filme: " + filme +
+                ", horario=" + horario +
+                ", valor=" + valor;
+    }
 }

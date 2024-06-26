@@ -2,6 +2,7 @@ package org.example.Views;
 
 import org.example.Controllers.AdmController;
 import org.example.Controllers.ClienteControllers;
+import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
 import org.example.Models.Usuario.Cliente;
 import org.example.Utils.Util;
@@ -30,6 +31,16 @@ public class ClienteView{
         } while (op != 0);
     }
 
+    public static void iniciarClienteSessaoLogado(Cliente cliente, Scanner sc) {
+        AdmController.printListaSessao();
+        int op;
+        do {
+            menuCLienteSessaoLogado();
+            op = Util.lerOpcoesMenu(sc);
+            escolhaMenuClienteSessaoLogado(cliente, sc, op);
+        } while (op != 0);
+    }
+
     public static void menuCliente(){
         System.out.println("######################");
         System.out.println("#      BEM VINDO     #");
@@ -48,14 +59,24 @@ public class ClienteView{
         System.out.println("######################");
         System.out.println("0- sair");
         System.out.println("1- Listar sessões disponiveis");
-        System.out.println("2- listar cadeiras disponiveis");
-        System.out.println("3- Comprar ingresso");
         System.out.println("4- Rembolsar ingresso");
         System.out.println("5- Imprimir ingresso");
         System.out.println("6- Verificar ingresso");
         System.out.println("######################");
 
     }
+
+    public static void menuCLienteSessaoLogado(){
+        System.out.println("######################");
+        System.out.println("#     MENU USUARIO    ");
+        System.out.println("######################");
+        System.out.println("0- sair");
+        System.out.println("1- listar cadeiras disponiveis");
+        System.out.println("2- Comprar ingresso");
+        System.out.println("######################");
+
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -108,32 +129,15 @@ public class ClienteView{
 
     }
 
-    public static void escolhamenuClienteLogando(Scanner sc, int op){
-        switch (op){
-            case 0 -> System.out.println("Saindo....");
-            default -> System.out.println("Opção errada");
-
-//            System.out.println("######################");
-//            System.out.println("#      BEM VINDO     #");
-//            System.out.println("#     MENU USUARIO    ");
-//            System.out.println("######################");
-//            System.out.println("0- sair");
-//            System.out.println("1- Usuario");
-//            System.out.println("2- Senha");
-//            System.out.println("######################");
-
-        }
-    }
 
     public static void escolhaMenuClienteLogado(Cliente cliente, Scanner sc, int op){
         switch (op){
             case 0 -> System.out.println("Saindo....");
-            case 1 -> System.out.println("Logando....");
+            case 1 -> iniciarClienteSessaoLogado(cliente, sc);
             case 2 -> registrarUsuario(sc);
-            case 3 -> System.out.println("Saindo....");
-            case 4 -> rembolsarIngresso();
-            case 5 -> imprimirIngresso();
-            case 6 -> verificarIngressos();
+            case 3 -> rembolsarIngresso();
+            case 4 -> imprimirIngresso();
+            case 5 -> verificarIngressos();
             default -> System.out.println("Opção errada");
 
 
@@ -142,21 +146,25 @@ public class ClienteView{
 //        System.out.println("2- listar cadeiras disponiveis");
 //        System.out.println("3- Comprar ingresso");
 
-    }
-    }
-
-    public static void escolhaMenuClienteRegistrar(Scanner sc, int op){
-        switch (op){
-            case 0 -> System.out.println("Saindo....");
-            default -> System.out.println("Opção errada");
-
-//            System.out.println("0- Sair");
-//            System.out.println("1- Usuario");
-//            System.out.println("2- Senha");
-
         }
     }
 
+    public static void escolhaMenuClienteSessaoLogado(Cliente cliente, Scanner sc, int op){
+
+        switch (op){
+            case 0 -> System.out.println("Saindo....");
+            case 1 -> System.out.println("Logando....");
+            case 2 -> System.out.println("Saindo....");
+            default -> System.out.println("Opção errada");
+
+
+//        System.out.println("0- sair");
+//        System.out.println("1- Listar sessões disponiveis");
+//        System.out.println("2- listar cadeiras disponiveis");
+//        System.out.println("3- Comprar ingresso");
+
+        }
+    }
 
 }
 
