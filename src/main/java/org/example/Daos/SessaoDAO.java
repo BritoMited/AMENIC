@@ -146,7 +146,7 @@ public class SessaoDAO {
 
         Integer id = Integer.valueOf(fields[0]);
         Filme filme = new Filme(fields[1], fields[2]);
-        LocalDateTime horario = LocalDateTime.parse(fields[3]);
+        LocalDateTime horario = LocalDateTime.parse(fields[3], dtf);
         Double valor = Double.valueOf(fields[4]);
 
         // Removendo colchetes e espaços
@@ -186,6 +186,54 @@ public class SessaoDAO {
         } catch (IOException ex) {
      //       logger.error("Ocorreu um erro ao tentar escrever os dados no arquivo " + fileName, ex);
         }
+    }
+
+    public static void alterarSessaoDao(String fileName, Sessao sessaoAlterada) {
+
+        List<Sessao> listaSessoes = listarSessao(fileName);
+
+
+        for (int i = 0; i < listaSessoes.size(); i++) {
+            Sessao sessao = listaSessoes.get(i);
+            if (sessao.getId().equals(sessaoAlterada.getId())) {
+                listaSessoes.set(i, sessaoAlterada);
+                break;
+            }
+        }
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
+            for (Sessao sessao : listaSessoes) {
+                bufferedWriter.write( sessao.getId() + ";" + sessao.getFilme().getTitulo() + ";" +
+                        sessao.getFilme().getGenero() + ";" + sessao.getHorario().format(dtf) + ";" +
+                        sessao.getValor());
+                bufferedWriter.newLine();
+            }
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao reescrever os dados no arquivo " + fileName);
+        }
+    }
+
+    public static void removerSessaoDao(String fileName, int idRemover){
+        List<Sessao> listaSessoes = listarSessao(fileName);
+
+        for (int i = 0; i < listaSessoes.size(); i++) {
+            Sessao sessao = listaSessoes.get(i);
+            if (sessao.getId().equals(idRemover)){
+                listaSessoes.remove(i);
+                break;
+            }
+
+        }
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
+            for (Sessao sessao : listaSessoes) {
+                bufferedWriter.write( sessao.getId() + ";" + sessao.getFilme().getTitulo() + ";" +
+                        sessao.getFilme().getGenero() + ";" + sessao.getHorario().format(dtf) + ";" +
+                        sessao.getValor());
+                bufferedWriter.newLine();
+            }
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao reescrever os dados no arquivo " + fileName);
+        }
+
     }
 
 }

@@ -8,6 +8,7 @@ import org.example.Models.Cadeira;
 import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
 
+import java.io.IOException;
 import java.util.List;
 
 public class AdmController {
@@ -50,10 +51,6 @@ public class AdmController {
         return null;
     }
 
-    public void registrar() {
-
-    }
-
     public static void criarSessao(Sessao sessao){
 
         try{
@@ -72,19 +69,6 @@ public class AdmController {
         }
 
     }
-
-    public static void listarFilme(){
-
-    }
-
-    public static void alterarFilme(){
-
-    }
-
-    public static void removerFilme(){
-
-    }
-
     public static Sessao buscarSessaoPorId(Integer id){
         try{
             for (Sessao s : listarSessao()){
