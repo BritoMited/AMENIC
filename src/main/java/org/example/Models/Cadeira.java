@@ -43,7 +43,7 @@ public class Cadeira {
         this.ocupado = true;
     }
 
-
+//nao mexer
     @Override
     public String toString() {
         return numero +
