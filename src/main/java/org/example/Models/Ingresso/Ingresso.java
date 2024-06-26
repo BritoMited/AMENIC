@@ -4,7 +4,6 @@ package org.example.Models.Ingresso;
 
 import org.example.Models.Cadeira;
 import org.example.Models.Filme;
-import org.example.Models.Usuario.Cliente;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,13 +12,13 @@ public class Ingresso {
 
     private UUID id;
     private Integer id_sessao;
-    private Integer id_cliente;
+    private UUID id_cliente;
     private Filme filme;
     private Cadeira cadeira;
     private LocalDateTime horario;
     private Double valor;
 
-    public Ingresso(Integer id_sessao, Integer id_cliente, Filme filme, Cadeira cadeira, LocalDateTime horario, Double valor) {
+    public Ingresso(Integer id_sessao, UUID id_cliente, Filme filme, Cadeira cadeira, LocalDateTime horario, Double valor) {
         this.id = UUID.randomUUID();
         this.id_sessao = id_sessao;
         this.id_cliente = id_cliente;
@@ -45,11 +44,11 @@ public class Ingresso {
         this.id_sessao = id_sessao;
     }
 
-    public Integer getId_cliente() {
+    public UUID getId_cliente() {
         return id_cliente;
     }
 
-    public void setId_cliente(Integer id_cliente) {
+    public void setId_cliente(UUID id_cliente) {
         this.id_cliente = id_cliente;
     }
 

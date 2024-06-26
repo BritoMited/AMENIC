@@ -12,8 +12,7 @@ public class Sessao {
     private Filme filme;
     private LocalDateTime horario;
     private Double valor;
-    private List<Cadeira> listaCadeiras;
-    private List<Ingresso> listaIngresso = new ArrayList<>();
+    private List<Cadeira> cadeiras;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
 
     public Sessao(Filme filme, LocalDateTime horario, Double valor) {
@@ -57,22 +56,59 @@ public class Sessao {
         this.valor = valor;
     }
 
-    public List<Cadeira> getListaCadeiras() {
-        return listaCadeiras;
+    public List<Cadeira> getCadeiras() {
+        return cadeiras;
     }
 
     public void setListaCadeiras(List<Cadeira> listaCadeiras) {
-        this.listaCadeiras = listaCadeiras;
+        this.cadeiras = listaCadeiras;
     }
 
-    public List<Ingresso> getListaIngresso() {
-        return listaIngresso;
+    public void gerarCadeiras(int numLinhas, int assentosPorLinha) {
+        this.cadeiras = new ArrayList<>();
+
+        for (char row = 'A'; row < 'A' + numLinhas; row++) {
+            for (int num = 1; num <= assentosPorLinha; num++) {
+                Cadeira cadeira = new Cadeira();
+                cadeira.setNumero(String.valueOf(row) + num);
+                cadeira.setPcd(true);
+                cadeira.setOcupado(false);
+                cadeiras.add(cadeira);
+            }
+        }
+
+        setListaCadeiras(cadeiras);
     }
 
-    public void setListaIngresso(List<Ingresso> listaIngresso) {
-        this.listaIngresso = listaIngresso;
+    public void ocupar(String cadeira){
+        for(Cadeira c: getCadeiras()) {
+            if(cadeira.equals(c.getNumero())){
+                c.ocupar();
+            }
+        }
     }
 
+    // Lista as cadeiras na sessão
+    public void listarCadeiras(){
+        int i = 0;
+        System.out.println("--------------------------------------");
+        for(Cadeira c: getCadeiras()) {
+            System.out.print(c + " ");
+            i++;
+            if(i % 8 == 0) System.out.println();
+            i-=8;
+        }
+        System.out.println("--------------------------------------");
+    }
+
+    public Boolean isDisponivel(String cadeira){
+        for(Cadeira c: getCadeiras()) {
+            if(cadeira.equals(c.getNumero()) && c.getOcupado()){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public String toString() {

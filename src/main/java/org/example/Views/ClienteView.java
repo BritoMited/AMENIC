@@ -71,8 +71,7 @@ public class ClienteView{
         System.out.println("#     MENU USUARIO    ");
         System.out.println("######################");
         System.out.println("0- sair");
-        System.out.println("1- listar cadeiras disponiveis");
-        System.out.println("2- Comprar ingresso");
+        System.out.println("1- Comprar ingresso");
         System.out.println("######################");
 
     }
@@ -135,9 +134,9 @@ public class ClienteView{
             case 0 -> System.out.println("Saindo....");
             case 1 -> iniciarClienteSessaoLogado(cliente, sc);
             case 2 -> registrarUsuario(sc);
-            case 3 -> rembolsarIngresso();
-            case 4 -> imprimirIngresso();
-            case 5 -> verificarIngressos();
+//            case 3 -> rembolsarIngresso();
+//            case 4 -> imprimirIngresso();
+//            case 5 -> verificarIngressos();
             default -> System.out.println("Opção errada");
 
 
@@ -153,8 +152,7 @@ public class ClienteView{
 
         switch (op){
             case 0 -> System.out.println("Saindo....");
-            case 1 -> System.out.println("Logando....");
-            case 2 -> System.out.println("Saindo....");
+            case 1 -> ClienteControllers.comprarIngresso(cliente, sc);
             default -> System.out.println("Opção errada");
 
 
@@ -165,6 +163,7 @@ public class ClienteView{
 
         }
     }
+
 
 }
 

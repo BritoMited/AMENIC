@@ -15,9 +15,6 @@ public class Cadeira {
         this.ocupado = ocupado;
     }
 
-    public Cadeira(String field) {
-    }
-
     public String getNumero() {
         return numero;
     }
@@ -42,12 +39,14 @@ public class Cadeira {
         this.ocupado = ocupado;
     }
 
-    // public void ocupar();
+    public void ocupar() {
+        this.ocupado = true;
+    }
 
 
     @Override
     public String toString() {
-        return numero + ";" +
+        return numero +
                 ";" + pcd +
                 ";" + ocupado;
     }
