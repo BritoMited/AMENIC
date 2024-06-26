@@ -83,7 +83,7 @@ public class IngressosDAO {
         }
     }
 
-    public static  List<Ingresso> buscarIngressoPorIdDao(String fileName, UUID id_cliente, Integer id_sessao) {
+    public static  List<Ingresso> buscarIngressoPorIdClienteDao(String fileName, UUID id_cliente, Integer id_sessao) {
         try{
             List<Ingresso> listaIngresso = listarIngressos(fileName);
             List<Ingresso> listaRetorno = new ArrayList<>();
@@ -91,6 +91,28 @@ public class IngressosDAO {
             for (Ingresso ingresso : listaIngresso) {
 
                 if (ingresso.getId_cliente().equals(id_cliente) && ingresso.getId_sessao().equals(id_sessao)){
+                    listaRetorno.add(ingresso);
+                }
+
+            }
+
+            if(listaIngresso != null) return listaRetorno;
+            throw new ClienteException("ingresso nao encontrado");
+        }catch(ClienteException e){
+            logger.error("Erro: " + e.getMessage());
+        }
+        return null;
+    }
+
+
+    public static  List<Ingresso> buscarIngressoPorIdDao(String fileName, Integer id_sessao) {
+        try{
+            List<Ingresso> listaIngresso = listarIngressos(fileName);
+            List<Ingresso> listaRetorno = new ArrayList<>();
+
+            for (Ingresso ingresso : listaIngresso) {
+
+                if (ingresso.getId_sessao().equals(id_sessao)){
                     listaRetorno.add(ingresso);
                 }
 

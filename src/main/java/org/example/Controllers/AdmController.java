@@ -3,13 +3,25 @@ package org.example.Controllers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.Daos.AdmDAO;
+import org.example.Daos.IngressosDAO;
 import org.example.Daos.SessaoDAO;
 import org.example.Exceptions.AdmException;
 import org.example.Exceptions.SessaoException;
+import org.example.Models.FileManager;
+import org.example.Models.Ingresso.Ingresso;
 import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
+import org.example.Models.Usuario.Cliente;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.Scanner;
+
+import static org.example.Daos.IngressosDAO.buscarIngressoPorIdDao;
+import static org.example.Views.AdmView.dtf;
 
 public class AdmController {
 
@@ -85,4 +97,40 @@ public class AdmController {
         }
         return null;
     }
+
+    public static void imprimirSessao(Scanner sc) {
+        FileManager fileManager = new FileManager();
+
+
+        File diretorio = fileManager.criarPasta("C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\DiretorioADM");
+
+        System.out.println("Digite o número da sessão que deseja imprimir o ingresso: ");
+        Integer id_sessao = sc.nextInt();
+
+        List<Ingresso> ingressos = buscarIngressoPorIdDao (SESSAO_FILE_NAME , id_sessao);
+
+        for (Ingresso ingresso : ingressos) {
+            try {
+                File file = fileManager.criarArquivo(diretorio, "Sessão" + ingresso.getId() + ".txt");
+                FileWriter fileWriter = new FileWriter(file, true);
+                PrintWriter printWriter = new PrintWriter(fileWriter);
+
+                printWriter.println("### Ingresso ###");
+                printWriter.println("Id do Ingresso: " + ingresso.getId());
+                printWriter.println("Id da sessão: " + ingresso.getId_sessao());
+                printWriter.println("Titulo do filme: " + ingresso.getFilme().getTitulo());
+                printWriter.println("Gênero: " + ingresso.getFilme().getGenero());
+                printWriter.println("Data da sessão: " + ingresso.getHorario().format(dtf));
+                printWriter.println("Cadeira: " + ingresso.getCadeira().getNumero());
+                printWriter.println("### Ingresso ###");
+
+                printWriter.close();
+                System.out.println("Ingresso impresso com sucesso em: " + file.getAbsolutePath());
+            } catch (IOException e) {
+                System.out.println("Erro ao imprimir ingresso: ");
+            }
+        }
+    }
+
+
 }

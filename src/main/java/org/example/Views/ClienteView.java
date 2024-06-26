@@ -145,7 +145,7 @@ public class ClienteView{
             case 0 -> System.out.println("Saindo....");
             case 1 -> iniciarClienteSessaoLogado(cliente, sc);
             case 2 -> ClienteControllers.rembolsarIngresso(cliente, sc);
-//            case 3 -> imprimirIngresso();
+            case 3 -> imprimirIngresso(sc, cliente);
             case 4 -> verificarIngressos(sc, cliente);
             default -> System.out.println("Aconteceu um erro ao digitar ");
 

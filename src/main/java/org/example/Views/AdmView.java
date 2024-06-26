@@ -13,10 +13,11 @@ import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
 import org.example.Utils.Util;
 
+import static org.example.Controllers.AdmController.imprimirSessao;
 import static org.example.Daos.SessaoDAO.alterarSessaoDao;
 
 public class AdmView {
-    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+    public static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
     private static final Logger logger = LogManager.getLogger(AdmView.class);
 
     public static void iniciarMenuAdm(Scanner sc) {
@@ -125,7 +126,7 @@ public class AdmView {
 
             }
             case 4 -> System.out.println("2- Listrar ingresos e total vendido");
-            case 5 -> System.out.println("3- imprimir ingresos");
+            case 5 ->  imprimirSessao(sc);
             default -> System.out.println("Opção errada");
 
 
