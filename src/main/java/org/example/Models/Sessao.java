@@ -93,6 +93,14 @@ public class Sessao {
         }
     }
 
+    public void desocupar(String cadeira){
+        for(Cadeira c: getCadeiras()) {
+            if(cadeira.equals(c.getNumero())){
+                c.desocupar();
+            }
+        }
+    }
+
     // Lista as cadeiras na sessão
     //mexer
     public void listarCadeiras(){

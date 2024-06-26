@@ -43,6 +43,10 @@ public class Cadeira {
         this.ocupado = true;
     }
 
+    public void desocupar() {
+        this.ocupado = false;
+    }
+
 //nao mexer
     @Override
     public String toString() {

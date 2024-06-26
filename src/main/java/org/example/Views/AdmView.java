@@ -124,7 +124,12 @@ public class AdmView {
                 SessaoDAO.removerSessaoDao("C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt", idRemover);
 
             }
-            case 4 -> System.out.println("2- Listrar ingresos e total vendido");
+            case 4 -> {
+                System.out.println("Informe o número da sessão: ");
+                int id = sc.nextInt();
+                AdmController.listarTotalIngressoPorSessao(id);
+            }
+
             case 5 -> System.out.println("3- imprimir ingresos");
             default -> System.out.println("Opção errada");
 

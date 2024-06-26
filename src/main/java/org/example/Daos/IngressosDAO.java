@@ -2,8 +2,8 @@ package org.example.Daos;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.Controllers.AdmController;
 import org.example.Exceptions.ClienteException;
-import org.example.Exceptions.SessaoException;
 import org.example.Models.Cadeira;
 import org.example.Models.Filme;
 import org.example.Models.Ingresso.Ingresso;
@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+
+import static org.example.Controllers.AdmController.SESSAO_FILE_NAME;
 
 public class IngressosDAO {
 
@@ -83,7 +85,7 @@ public class IngressosDAO {
         }
     }
 
-    public static  List<Ingresso> buscarIngressoPorIdDao(String fileName, UUID id_cliente, Integer id_sessao) {
+    public static  List<Ingresso> buscarIngressoPorIdClienteDao(String fileName, UUID id_cliente, Integer id_sessao) {
         try{
             List<Ingresso> listaIngresso = listarIngressos(fileName);
             List<Ingresso> listaRetorno = new ArrayList<>();
@@ -91,6 +93,27 @@ public class IngressosDAO {
             for (Ingresso ingresso : listaIngresso) {
 
                 if (ingresso.getId_cliente().equals(id_cliente) && ingresso.getId_sessao().equals(id_sessao)){
+                    listaRetorno.add(ingresso);
+                }
+
+            }
+
+            if(listaIngresso != null) return listaRetorno;
+            throw new ClienteException("ingresso nao encontrado");
+        }catch(ClienteException e){
+            logger.error("Erro: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public static  List<Ingresso> buscarIngressoPorIdDao(String fileName, Integer id_sessao) {
+        try{
+            List<Ingresso> listaIngresso = listarIngressos(fileName);
+            List<Ingresso> listaRetorno = new ArrayList<>();
+
+            for (Ingresso ingresso : listaIngresso) {
+
+                if (ingresso.getId_sessao().equals(id_sessao)){
                     listaRetorno.add(ingresso);
                 }
 
@@ -114,6 +137,11 @@ public class IngressosDAO {
         while (iterator.hasNext()) {
             Ingresso ingresso = iterator.next();
             if (ingresso.getId_cliente().equals(id_cliente) && ingresso.getId_sessao().equals(id_sessao)) {
+
+                Sessao sessao = AdmController.buscarSessaoPorId(ingresso.getId_sessao());
+                sessao.desocupar(ingresso.getCadeira().getNumero());
+                SessaoDAO.alterarSessaoDao(SESSAO_FILE_NAME, sessao);
+
                 iterator.remove();
             }
         }

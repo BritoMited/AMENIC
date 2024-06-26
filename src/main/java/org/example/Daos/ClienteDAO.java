@@ -62,9 +62,9 @@ public class ClienteDAO {
 
     public static void registrarClienteDao(String fileName, Cliente c) {
 
-        // logger.info("Iniciando a abertura do arquivo " + fileName);
+        logger.info("Iniciando a abertura do arquivo " + fileName);
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName, true))) {
-            // logger.info("Escrendo as informações no arquivo .txt");
+            logger.info("Escrendo as informações no arquivo .txt");
 
                 bufferedWriter.write(c.getId()+";"+c.getNome()+";"+c.getSenha()
                         +";"+c.getIdade()
@@ -74,7 +74,7 @@ public class ClienteDAO {
                 bufferedWriter.newLine();
 
         } catch (IOException ex) {
-            //  logger.error("Ocorreu um erro ao tentar escrever os dados no arquivo " + fileName, ex);
+            logger.error("Ocorreu um erro ao tentar escrever os dados no arquivo " + fileName, ex);
         }
     }
 

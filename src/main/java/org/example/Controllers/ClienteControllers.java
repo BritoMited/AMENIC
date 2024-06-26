@@ -21,9 +21,9 @@ import java.util.Scanner;
 public class ClienteControllers {
 
 
-    private static final String CLIENTE_FILE_NAME = "C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Cliente\\Cliente.txt";
-    private static final String INGRESSO_FILE_NAME = "C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Ingressos\\Ingressos.txt";
-    private static final String SESSAO_FILE_NAME = "C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
+    private static final String CLIENTE_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Cliente\\Cliente.txt";
+    public static final String INGRESSO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Ingressos\\Ingressos.txt";
+    private static final String SESSAO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
 
     public static List<Cliente> listarCliente(){
         return ClienteDAO.listarCliente(CLIENTE_FILE_NAME);
@@ -161,7 +161,7 @@ public class ClienteControllers {
             System.out.println("Digite o numero da sessão que deseja verificar o ingresso: ");
             Integer id_sessao = sc.nextInt();
 
-            List<Ingresso> ingressos = IngressosDAO.buscarIngressoPorIdDao(INGRESSO_FILE_NAME, cliente.getId(), id_sessao);
+            List<Ingresso> ingressos = IngressosDAO.buscarIngressoPorIdClienteDao(INGRESSO_FILE_NAME, cliente.getId(), id_sessao);
 
             for (Ingresso ingresso : ingressos){
                 System.out.println("######################");
