@@ -1,5 +1,6 @@
 package org.example.Daos;
 
+import org.example.Models.Cadeira;
 import org.example.Models.Filme;
 import org.example.Models.Sessao;
 
@@ -34,17 +35,138 @@ public class SessaoDAO {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private static Sessao parse(String linha) {
-        var fields = linha.split(";");
+        String[] fields = linha.split(";", 6); // Divida até o 6º campo
         // Gerando UUID from String
+        List<Cadeira> cadeiras = new ArrayList<>();
 
         Integer id = Integer.valueOf(fields[0]);
         Filme filme = new Filme(fields[1], fields[2]);
         LocalDateTime horario = LocalDateTime.parse(fields[3]);
         Double valor = Double.valueOf(fields[4]);
 
-        var sessao = new Sessao(filme, horario, valor);
+        // Removendo colchetes e espaços
+        String cadeirasString = fields[5].replace("[", "").replace("]", "").trim();
+        String[] cadeirasFields = cadeirasString.split(", ");
+
+        for (String cadeiraField : cadeirasFields) {
+            String[] cadeiraInfo = cadeiraField.split(";");
+            if (cadeiraInfo.length == 3) {
+                Cadeira cadeira = new Cadeira();
+                cadeira.setNumero(cadeiraInfo[0]);
+                cadeira.setPcd(Boolean.valueOf(cadeiraInfo[1]));
+                cadeira.setOcupado(Boolean.valueOf(cadeiraInfo[2]));
+                cadeiras.add(cadeira);
+            }
+        }
+
+        Sessao sessao = new Sessao(filme, horario, valor);
         sessao.setId(id);
+        sessao.setListaCadeiras(cadeiras);
 
         return sessao;
     }
@@ -57,7 +179,8 @@ public class SessaoDAO {
 
             bufferedWriter.write(sessao.getId()+";"+sessao.getFilme()
                                 +";"+sessao.getHorario()
-                                +";"+sessao.getValor());
+                                +";"+sessao.getValor()
+                                +";"+sessao.getCadeiras());
             bufferedWriter.newLine();
 
         } catch (IOException ex) {

@@ -43,7 +43,7 @@ public class IngressosDAO {
         // Gerando UUID from String
         var uuid = UUID.fromString(fields[0].toString());
         Integer id_sessao = Integer.valueOf(fields[1]);
-        Integer id_cliente = Integer.valueOf(fields[2]);
+        UUID id_cliente = UUID.fromString(fields[2].toString());;
         Filme filme = new Filme(fields[3], fields[4]);
         Cadeira cadeira = new Cadeira(fields[5], Boolean.valueOf(fields[6]), Boolean.valueOf(fields[7]));
         LocalDateTime horario = LocalDateTime.parse(fields[7]);

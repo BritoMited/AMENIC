@@ -5,7 +5,10 @@ import org.example.Daos.ClienteDAO;
 import org.example.Daos.IngressosDAO;
 import org.example.Exceptions.AdmLoginFailedException;
 import org.example.Exceptions.ClienteLoginFailedException;
+import org.example.Models.Cadeira;
+import org.example.Models.Filme;
 import org.example.Models.Ingresso.Ingresso;
+import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
 import org.example.Models.Usuario.Cliente;
 
@@ -24,6 +27,10 @@ public class ClienteControllers {
 
     public static List<Ingresso> listarIngresso(){
         return IngressosDAO.listarIngressos(INGRESSO_FILE_NAME);
+    }
+
+    public static void criarIngresso(Ingresso ingresso){
+        IngressosDAO.criarIngressoDAO(INGRESSO_FILE_NAME, ingresso);
     }
 
     public static Cliente logarUsuario(String nome, String senha){
@@ -52,17 +59,57 @@ public class ClienteControllers {
         System.out.println("Registro realizado!");
     }
 
+    public static void comprarIngresso(Cliente cliente, Scanner sc) {
+        System.out.println("Numero da sessão: ");
+        Integer n = sc.nextInt();
 
-    public static void rembolsarIngresso(){
+        Sessao sessao = AdmController.buscarSessaoPorId(n);
 
+        System.out.println("Quantidade de ingressos: ");
+        int quant = sc.nextInt();
+        for (int i = 0; i < quant; i++) {
+
+            sc.nextLine();
+            sessao.listarCadeiras();
+            System.out.println("Digite o número da cadeira desejada: (ex: A2)");
+            String numeroCadeira = sc.nextLine();
+            numeroCadeira = numeroCadeira.toUpperCase();
+
+            // Verificação da disponibilidade da cadeira
+            while (sessao.isDisponivel(numeroCadeira)) {
+                System.out.println("Cadeira indisponível, escolha outra:");
+                numeroCadeira = sc.nextLine();
+                numeroCadeira = numeroCadeira.toUpperCase();
+            }
+
+            // Adição do ingresso à sessão e marcação da cadeira como ocupada
+            Ingresso ingresso = new Ingresso(
+                    sessao.getId(),
+                    cliente.getId(),
+                    new Filme(sessao.getFilme().getTitulo(), sessao.getFilme().getGenero()),
+                    new Cadeira(numeroCadeira, cliente.getPcd(), true),
+                    sessao.getHorario(),
+                    sessao.getValor());
+
+            sessao.ocupar(numeroCadeira);
+
+            criarIngresso(ingresso);
+
+          //  sessoes[n].findIngresso(ingressoVer.getId());
     }
-    public static void imprimirIngresso(){
-
-    }
-    public static void verificarIngressos(){
-
-    }
 
 
+//    public static void rembolsarIngresso(){
+//
+//    }
+//    public static void imprimirIngresso(){
+//
+//    }
+//    public static void verificarIngressos(){
+//
+//    }
 
+
+
+ }
 }
