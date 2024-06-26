@@ -35,110 +35,6 @@ public class SessaoDAO {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private static Sessao parse(String linha) {
         String[] fields = linha.split(";", 6); // Divida até o 6º campo
         // Gerando UUID from String
@@ -178,7 +74,7 @@ public class SessaoDAO {
      //       logger.info("Escrendo as informações no arquivo .txt");
 
             bufferedWriter.write(sessao.getId()+";"+sessao.getFilme()
-                                +";"+sessao.getHorario()
+                                +";"+ sessao.getHorario().format(dtf)
                                 +";"+sessao.getValor()
                                 +";"+sessao.getCadeiras());
             bufferedWriter.newLine();
@@ -202,9 +98,10 @@ public class SessaoDAO {
         }
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
             for (Sessao sessao : listaSessoes) {
-                bufferedWriter.write( sessao.getId() + ";" + sessao.getFilme().getTitulo() + ";" +
-                        sessao.getFilme().getGenero() + ";" + sessao.getHorario().format(dtf) + ";" +
-                        sessao.getValor());
+                bufferedWriter.write( sessao.getId() + ";" + sessao.getFilme()+ ";"
+                        + sessao.getHorario().format(dtf) + ";" +
+                        sessao.getValor()
+                        +";"+sessao.getCadeiras());
                 bufferedWriter.newLine();
             }
         } catch (Exception e) {
@@ -225,9 +122,10 @@ public class SessaoDAO {
         }
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
             for (Sessao sessao : listaSessoes) {
-                bufferedWriter.write( sessao.getId() + ";" + sessao.getFilme().getTitulo() + ";" +
-                        sessao.getFilme().getGenero() + ";" + sessao.getHorario().format(dtf) + ";" +
-                        sessao.getValor());
+                bufferedWriter.write( sessao.getId() + ";" + sessao.getFilme()+
+                        ";" + sessao.getHorario().format(dtf) + ";" +
+                        sessao.getValor()
+                        +";"+sessao.getCadeiras());
                 bufferedWriter.newLine();
             }
         } catch (Exception e) {

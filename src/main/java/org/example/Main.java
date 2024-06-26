@@ -36,6 +36,7 @@ public class Main {
         System.out.println("0 - Sair");
         System.out.println("1 - Cliente");
         System.out.println("2 - Administrador");
+        System.out.println("###########################");
     }
 
 }

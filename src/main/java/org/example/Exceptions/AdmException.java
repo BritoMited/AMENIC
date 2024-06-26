@@ -1,8 +1,8 @@
 package org.example.Exceptions;
 
-public class AdmLoginFailedException extends Exception{
+public class AdmException extends Exception{
 
-        public AdmLoginFailedException(String message) {
+        public AdmException(String message) {
             super(message);
         }
 

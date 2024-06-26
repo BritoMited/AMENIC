@@ -1,5 +1,7 @@
 package org.example.Daos;
 
+import org.example.Exceptions.ClienteException;
+import org.example.Exceptions.SessaoException;
 import org.example.Models.Cadeira;
 import org.example.Models.Filme;
 import org.example.Models.Ingresso.Ingresso;
@@ -9,6 +11,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,11 +46,11 @@ public class IngressosDAO {
         // Gerando UUID from String
         var uuid = UUID.fromString(fields[0].toString());
         Integer id_sessao = Integer.valueOf(fields[1]);
-        UUID id_cliente = UUID.fromString(fields[2].toString());;
+        UUID id_cliente = UUID.fromString(fields[2].toString());
         Filme filme = new Filme(fields[3], fields[4]);
         Cadeira cadeira = new Cadeira(fields[5], Boolean.valueOf(fields[6]), Boolean.valueOf(fields[7]));
-        LocalDateTime horario = LocalDateTime.parse(fields[7]);
-        Double valor = Double.valueOf(fields[8]);
+        LocalDateTime horario = LocalDateTime.parse(fields[8], dtf);
+        Double valor = Double.valueOf(fields[9]);
 
         var ingresso = new Ingresso(id_sessao, id_cliente, filme, cadeira, horario, valor);
         ingresso.setId(uuid);
@@ -65,13 +68,64 @@ public class IngressosDAO {
                     +";"+ingresso.getId_cliente()
                     +";"+ingresso.getFilme()
                     +";"+ingresso.getCadeira()
-                    +";"+ingresso.getHorario()
+                    +";"+ingresso.getHorario().format(dtf)
                     +";"+ingresso.getValor());
             bufferedWriter.newLine();
 
         } catch (IOException ex) {
             //       logger.error("Ocorreu um erro ao tentar escrever os dados no arquivo " + fileName, ex);
         }
+    }
+
+    public static  List<Ingresso> buscarIngressoPorIdDao(String fileName, UUID id_cliente, Integer id_sessao) {
+        try{
+            List<Ingresso> listaIngresso = listarIngressos(fileName);
+            List<Ingresso> listaRetorno = new ArrayList<>();
+
+            for (Ingresso ingresso : listaIngresso) {
+
+                if (ingresso.getId_cliente().equals(id_cliente) && ingresso.getId_sessao().equals(id_sessao)){
+                    listaRetorno.add(ingresso);
+                }
+
+            }
+
+            if(listaIngresso != null) return listaRetorno;
+            throw new ClienteException("ingresso nao encontrado");
+        }catch(ClienteException e){
+            System.out.println("Erro: " + e.getMessage());
+        }
+        return null;
+    }
+
+
+    public static void removerIngressoDao(String fileName, UUID id_cliente, Integer id_sessao){
+
+        List<Ingresso> listaIngresso = listarIngressos(fileName);
+
+
+        Iterator<Ingresso> iterator = listaIngresso.iterator();
+        while (iterator.hasNext()) {
+            Ingresso ingresso = iterator.next();
+            if (ingresso.getId_cliente().equals(id_cliente) && ingresso.getId_sessao().equals(id_sessao)) {
+                iterator.remove();
+            }
+        }
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
+            for (Ingresso ingresso : listaIngresso) {
+                bufferedWriter.write(ingresso.getId()+";"+ingresso.getId_sessao()
+                        +";"+ingresso.getId_cliente()
+                        +";"+ingresso.getFilme()
+                        +";"+ingresso.getCadeira()
+                        +";"+ingresso.getHorario().format(dtf)
+                        +";"+ingresso.getValor());
+                bufferedWriter.newLine();
+            }
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao reescrever os dados no arquivo " + fileName);
+        }
+
     }
 
 }

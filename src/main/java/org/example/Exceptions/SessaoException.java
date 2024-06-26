@@ -1,8 +1,8 @@
 package org.example.Exceptions;
 
-public class SessaoAlreadyExistsException extends Exception{
+public class SessaoException extends Exception{
 
-    public SessaoAlreadyExistsException(String message) {
+    public SessaoException(String message) {
         super(message);
     }
 

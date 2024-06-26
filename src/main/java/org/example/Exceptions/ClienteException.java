@@ -1,8 +1,8 @@
 package org.example.Exceptions;
 
-public class ClienteLoginFailedException extends Exception {
+public class ClienteException extends Exception {
 
-    public ClienteLoginFailedException(String message) {
+    public ClienteException(String message) {
         super(message);
     }
 }
