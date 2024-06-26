@@ -2,9 +2,6 @@ package org.example.Views;
 
 import org.example.Controllers.AdmController;
 import org.example.Controllers.ClienteControllers;
-import org.example.Exceptions.ClienteException;
-import org.example.Models.Sessao;
-import org.example.Models.Usuario.Administrador;
 import org.example.Models.Usuario.Cliente;
 import org.example.Utils.Util;
 
@@ -101,7 +98,7 @@ public class ClienteView{
 
     public static void logarUsuario(Scanner sc){
 
-        Cliente cliente = null;
+        Cliente cliente;
         do {
 
             System.out.println("Nome: ");
@@ -145,7 +142,7 @@ public class ClienteView{
             case 0 -> System.out.println("Saindo....");
             case 1 -> iniciarClienteSessaoLogado(cliente, sc);
             case 2 -> ClienteControllers.rembolsarIngresso(cliente, sc);
-//            case 3 -> imprimirIngresso();
+            case 3 -> imprimirIngresso(sc, cliente);
             case 4 -> verificarIngressos(sc, cliente);
             default -> System.out.println("Aconteceu um erro ao digitar ");
 

@@ -13,10 +13,10 @@ import org.example.Models.Sessao;
 import org.example.Models.Usuario.Administrador;
 import org.example.Utils.Util;
 
-import static org.example.Daos.SessaoDAO.alterarSessaoDao;
+import static org.example.Controllers.AdmController.imprimirSessao;
 
 public class AdmView {
-    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+    public static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
     private static final Logger logger = LogManager.getLogger(AdmView.class);
 
     public static void iniciarMenuAdm(Scanner sc) {
@@ -116,7 +116,7 @@ public class AdmView {
                     sessaoAlterada.setId(idSessao);
 
                     SessaoDAO.alterarSessaoDao("C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt" , sessaoAlterada);
-                    break;
+
             }
             case 3 -> {
                 System.out.println("Digite o id da sessão que quer excluir");
@@ -129,8 +129,7 @@ public class AdmView {
                 int id = sc.nextInt();
                 AdmController.listarTotalIngressoPorSessao(id);
             }
-
-            case 5 -> System.out.println("3- imprimir ingresos");
+            case 5 ->  imprimirSessao(sc);
             default -> System.out.println("Opção errada");
 
 
@@ -139,7 +138,7 @@ public class AdmView {
     // ====== Funcões MenuAdm =====
 
     public static void logarAdm(Scanner sc){
-        Administrador adm = null;
+        Administrador adm;
         do {
             System.out.println("Nome: ");
             String nome = sc.nextLine();

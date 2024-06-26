@@ -1,0 +1,8 @@
+### Ingresso ###
+Id do Ingresso: afc751e0-6588-42b9-98b6-b57daf918777
+Id da sessão: 7
+Id do Cliente: 42add95f-4bd0-4b8b-9fac-18b54de692f3
+Titulo do filme: slk
+Gênero: seloco
+Data da sessão: 02/02/02 02:02
+Cadeira: A5
