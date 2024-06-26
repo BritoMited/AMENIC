@@ -1,5 +1,7 @@
 package org.example.Daos;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.Models.Usuario.Administrador;
 
 import java.io.*;
@@ -9,10 +11,10 @@ import java.util.UUID;
 
 public class AdmDAO {
 
-    // COLOCAR CAMINHO DO ARQUIVO
+    private static final Logger logger = LogManager.getLogger(ClienteDAO.class);
 
     public static List<Administrador> listarAdm(String fileName) {
-     //   logger.info("Iniciando a leitura dos dados de tarefas");
+     logger.info("Iniciando a leitura dos dados de tarefas");
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 
@@ -24,18 +26,20 @@ public class AdmDAO {
             // Laço de repetição para leitura do arquivo de tarefas
 
             while ((linha = br.readLine()) != null) {
+                logger.info("Iniciando a leitura das linhas");
                 var adm = parse(linha);
 
                 adms.add(adm);
             }
             return adms;
         } catch (IOException e) {
-         //   logger.error("Ocorreu um erro ao tentar ler os dados do arquivo de tarefas");
+         logger.error("Ocorreu um erro ao tentar ler os dados do arquivo de tarefas");
             return null;
         }
     }
 
     private static Administrador parse(String linha) {
+        logger.info("Iniciando o parse e split");
         var fields = linha.split(";");
         // Gerando UUID from String
         var uuid = UUID.fromString(fields[0].toString());

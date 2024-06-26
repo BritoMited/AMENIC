@@ -1,5 +1,7 @@
 package org.example.Daos;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.Exceptions.ClienteException;
 import org.example.Exceptions.SessaoException;
 import org.example.Models.Cadeira;
@@ -17,10 +19,12 @@ import java.util.UUID;
 
 public class IngressosDAO {
 
+    private static final Logger logger = LogManager.getLogger(IngressosDAO.class);
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
 
     public static List<Ingresso> listarIngressos(String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            logger.info("Lendo arquivo");
 
             // Declaração de variaveis locais do metodo
 
@@ -31,12 +35,13 @@ public class IngressosDAO {
 
             while ((linha = br.readLine()) != null) {
                 var ingresso = parse(linha);
+                logger.info("Lendo as linhas do arquivo");
 
                 ingressos.add(ingresso);
             }
             return ingressos;
         } catch (IOException e) {
-            //   logger.error("Ocorreu um erro ao tentar ler os dados do arquivo de tarefas");
+            logger.error("Ocorreu um erro ao tentar ler os dados do arquivo de tarefas");
             return null;
         }
     }
@@ -51,6 +56,7 @@ public class IngressosDAO {
         Cadeira cadeira = new Cadeira(fields[5], Boolean.valueOf(fields[6]), Boolean.valueOf(fields[7]));
         LocalDateTime horario = LocalDateTime.parse(fields[8], dtf);
         Double valor = Double.valueOf(fields[9]);
+        logger.info("Separando informações no arquivo");
 
         var ingresso = new Ingresso(id_sessao, id_cliente, filme, cadeira, horario, valor);
         ingresso.setId(uuid);
@@ -60,9 +66,9 @@ public class IngressosDAO {
 
     public static void criarIngressoDAO(String fileName, Ingresso ingresso) {
 
-        //   logger.info("Iniciando a abertura do arquivo " + fileName);
+          logger.info("Iniciando a abertura do arquivo " + fileName);
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName, true))) {
-            //       logger.info("Escrendo as informações no arquivo .txt");
+            logger.info("Escrendo as informações no arquivo .txt");
 
             bufferedWriter.write(ingresso.getId()+";"+ingresso.getId_sessao()
                     +";"+ingresso.getId_cliente()
@@ -73,7 +79,7 @@ public class IngressosDAO {
             bufferedWriter.newLine();
 
         } catch (IOException ex) {
-            //       logger.error("Ocorreu um erro ao tentar escrever os dados no arquivo " + fileName, ex);
+                   logger.error("Ocorreu um erro ao tentar escrever os dados no arquivo " + fileName, ex);
         }
     }
 
@@ -93,7 +99,7 @@ public class IngressosDAO {
             if(listaIngresso != null) return listaRetorno;
             throw new ClienteException("ingresso nao encontrado");
         }catch(ClienteException e){
-            System.out.println("Erro: " + e.getMessage());
+            logger.error("Erro: " + e.getMessage());
         }
         return null;
     }
@@ -123,7 +129,7 @@ public class IngressosDAO {
                 bufferedWriter.newLine();
             }
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao reescrever os dados no arquivo " + fileName);
+            logger.error("Ocorreu um erro ao reescrever os dados no arquivo " + fileName);
         }
 
     }

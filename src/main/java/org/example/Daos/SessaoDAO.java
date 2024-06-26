@@ -1,5 +1,7 @@
 package org.example.Daos;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.Models.Cadeira;
 import org.example.Models.Filme;
 import org.example.Models.Sessao;
@@ -11,10 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SessaoDAO {
+
+    private static final Logger logger = LogManager.getLogger(SessaoDAO.class);
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
 
     public static List<Sessao> listarSessao(String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            logger.info("Lendo arquivo");
 
             // Declaração de variaveis locais do metodo
 
@@ -25,19 +30,20 @@ public class SessaoDAO {
 
             while ((linha = br.readLine()) != null) {
                 var sessao = parse(linha);
+                logger.info("Lendo linha do arquivo");
 
                 sessoes.add(sessao);
             }
             return sessoes;
         } catch (IOException e) {
-            //   logger.error("Ocorreu um erro ao tentar ler os dados do arquivo de tarefas");
+            logger.error("Ocorreu um erro ao tentar ler os dados do arquivo de tarefas");
             return null;
         }
     }
 
     private static Sessao parse(String linha) {
         String[] fields = linha.split(";", 6); // Divida até o 6º campo
-        // Gerando UUID from String
+        logger.info("iniciando a separação informações no arquivo");
         List<Cadeira> cadeiras = new ArrayList<>();
 
         Integer id = Integer.valueOf(fields[0]);
@@ -48,6 +54,7 @@ public class SessaoDAO {
         // Removendo colchetes e espaços
         String cadeirasString = fields[5].replace("[", "").replace("]", "").trim();
         String[] cadeirasFields = cadeirasString.split(", ");
+        logger.info("Separando informações no arquivo");
 
         for (String cadeiraField : cadeirasFields) {
             String[] cadeiraInfo = cadeiraField.split(";");
@@ -69,9 +76,9 @@ public class SessaoDAO {
 
     public static void criarSessaoDAO(String fileName, Sessao sessao) {
 
-     //   logger.info("Iniciando a abertura do arquivo " + fileName);
+     logger.info("Iniciando a abertura do arquivo " + fileName);
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName, true))) {
-     //       logger.info("Escrendo as informações no arquivo .txt");
+            logger.info("Escrendo as informações no arquivo .txt");
 
             bufferedWriter.write(sessao.getId()+";"+sessao.getFilme()
                                 +";"+ sessao.getHorario().format(dtf)
@@ -80,11 +87,12 @@ public class SessaoDAO {
             bufferedWriter.newLine();
 
         } catch (IOException ex) {
-     //       logger.error("Ocorreu um erro ao tentar escrever os dados no arquivo " + fileName, ex);
+            logger.error("Ocorreu um erro ao tentar escrever os dados no arquivo " + fileName, ex);
         }
     }
 
     public static void alterarSessaoDao(String fileName, Sessao sessaoAlterada) {
+        logger.info("Iniciando a alteração do arquivo " + fileName);
 
         List<Sessao> listaSessoes = listarSessao(fileName);
 
@@ -93,6 +101,7 @@ public class SessaoDAO {
             Sessao sessao = listaSessoes.get(i);
             if (sessao.getId().equals(sessaoAlterada.getId())) {
                 listaSessoes.set(i, sessaoAlterada);
+                logger.info("setando o id para a alteração do arquivo " + fileName);
                 break;
             }
         }
@@ -102,20 +111,23 @@ public class SessaoDAO {
                         + sessao.getHorario().format(dtf) + ";" +
                         sessao.getValor()
                         +";"+sessao.getCadeiras());
+                logger.info("Iniciando a alteração do arquivo " + fileName);
                 bufferedWriter.newLine();
             }
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao reescrever os dados no arquivo " + fileName);
+            logger.error("Ocorreu um erro ao reescrever os dados no arquivo " + fileName);
         }
     }
 
     public static void removerSessaoDao(String fileName, int idRemover){
         List<Sessao> listaSessoes = listarSessao(fileName);
+        logger.info("Iniciando a remoção do arquivo " + fileName);
 
         for (int i = 0; i < listaSessoes.size(); i++) {
             Sessao sessao = listaSessoes.get(i);
             if (sessao.getId().equals(idRemover)){
                 listaSessoes.remove(i);
+                logger.info("setando o id para a alteração do arquivo " + fileName);
                 break;
             }
 
@@ -126,10 +138,11 @@ public class SessaoDAO {
                         ";" + sessao.getHorario().format(dtf) + ";" +
                         sessao.getValor()
                         +";"+sessao.getCadeiras());
+                logger.info("Iniciando a remoção do arquivo " + fileName);
                 bufferedWriter.newLine();
             }
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao reescrever os dados no arquivo " + fileName);
+            logger.error("Ocorreu um erro ao reescrever os dados no arquivo " + fileName);
         }
 
     }

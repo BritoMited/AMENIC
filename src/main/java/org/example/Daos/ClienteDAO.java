@@ -1,6 +1,8 @@
 package org.example.Daos;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.Models.Usuario.Cliente;
 
 import java.io.*;
@@ -8,28 +10,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ClienteDAO {
 
+public class ClienteDAO {
+    private static final Logger logger = LogManager.getLogger(ClienteDAO.class);
     public static List<Cliente> listarCliente(String fileName) {
-        //   logger.info("Iniciando a leitura dos dados de tarefas");
+        logger.info("Iniciando a leitura dos dados de tarefas");
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            logger.info("Iniciando a leitura do arquivo");
 
             // Declaração de variaveis locais do metodo
 
             String linha = null;
 
             List<Cliente> clientes = new ArrayList<>();
+            logger.info("Iniciando o array list de Cliente");
             // Laço de repetição para leitura do arquivo de tarefas
 
             while ((linha = br.readLine()) != null) {
                 var cliente = parse(linha);
+                logger.info("Adicionadno cliente ao DAO");
 
                 clientes.add(cliente);
             }
             return clientes;
         } catch (IOException e) {
-            //   logger.error("Ocorreu um erro ao tentar ler os dados do arquivo de tarefas");
+             logger.error("Ocorreu um erro ao tentar ler os dados do arquivo de tarefas");
             return null;
         }
     }
@@ -45,8 +51,11 @@ public class ClienteDAO {
         Boolean estudande = Boolean.valueOf(fields[4]);
         Boolean pcd = Boolean.valueOf(fields[5]);
 
+        logger.info("salvando fields");
+
         var cliente = new Cliente(nome, senha, idade, estudande, pcd);
         cliente.setId(uuid);
+
 
         return cliente;
     }
