@@ -30,6 +30,7 @@ public class AdmController {
 
     private static final Logger logger = LogManager.getLogger(AdmController.class);
     private static final String ADM_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Administrador\\Administrador.txt";
+    private static final String DIRETORIOADM_DIR_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\DiretorioADM";
 
     public static List<Administrador> listarAdm(){
         return AdmDAO.listarAdm(ADM_FILE_NAME);
@@ -120,7 +121,7 @@ public class AdmController {
         FileManager fileManager = new FileManager();
 
 
-        File diretorio = fileManager.criarPasta("C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\DiretorioADM");
+        File diretorio = fileManager.criarPasta(DIRETORIOADM_DIR_NAME);
 
         System.out.println("Digite o número da sessão que deseja imprimir o ingresso: ");
         Integer id_sessao = sc.nextInt();

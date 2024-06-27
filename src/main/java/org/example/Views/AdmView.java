@@ -14,6 +14,7 @@ import org.example.Models.Usuario.Administrador;
 import org.example.Utils.Util;
 
 import static org.example.Controllers.AdmController.imprimirSessao;
+import static org.example.Controllers.ClienteControllers.SESSAO_FILE_NAME;
 
 public class AdmView {
     public static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
@@ -115,13 +116,13 @@ public class AdmView {
                     Sessao sessaoAlterada = new Sessao(filme, horarioSessao, valor);
                     sessaoAlterada.setId(idSessao);
 
-                    SessaoDAO.alterarSessaoDao("C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt" , sessaoAlterada);
+                    SessaoDAO.alterarSessaoDao(SESSAO_FILE_NAME , sessaoAlterada);
 
             }
             case 3 -> {
                 System.out.println("Digite o id da sessão que quer excluir");
                 int idRemover = Integer.parseInt(sc.nextLine());
-                SessaoDAO.removerSessaoDao("C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt", idRemover);
+                SessaoDAO.removerSessaoDao(SESSAO_FILE_NAME, idRemover);
 
             }
             case 4 -> {

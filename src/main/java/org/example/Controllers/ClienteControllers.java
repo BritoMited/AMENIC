@@ -32,6 +32,7 @@ public class ClienteControllers {
     public static final String CLIENTE_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Cliente\\Cliente.txt";
     public static final String INGRESSO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Ingressos\\Ingressos.txt";
     public static final String SESSAO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
+    private static final String DIRETORIOCLIENTE_DIR_NAME = "C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\DiretorioCliente";
 
     public static List<Cliente> listarCliente(){
         return ClienteDAO.listarCliente(CLIENTE_FILE_NAME);
@@ -185,7 +186,7 @@ public class ClienteControllers {
         FileManager fileManager = new FileManager();
 
 
-        File diretorio = fileManager.criarPasta("C:\\Estudosjava\\Cinemjav\\AMENIC\\src\\main\\java\\org\\example\\DiretorioCliente");
+        File diretorio = fileManager.criarPasta(DIRETORIOCLIENTE_DIR_NAME);
 
         System.out.println("Digite o número da sessão que deseja imprimir o ingresso: ");
         Integer id_sessao = sc.nextInt();
