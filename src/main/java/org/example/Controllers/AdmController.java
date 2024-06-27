@@ -146,7 +146,7 @@ public class AdmController {
                 printWriter.close();
                 System.out.println("Ingresso impresso com sucesso em: " + file.getAbsolutePath());
             } catch (IOException e) {
-                System.out.println("Erro ao imprimir ingresso: ");
+                logger.error("Erro ao imprimir ingresso: ");
             }
         }
     }
