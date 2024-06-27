@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static org.example.Controllers.ClienteControllers.INGRESSO_FILE_NAME;
+import static org.example.Controllers.ClienteControllers.SESSAO_FILE_NAME;
 import static org.example.Daos.IngressosDAO.buscarIngressoPorIdDao;
 import static org.example.Views.AdmView.dtf;
 
@@ -29,7 +30,6 @@ public class AdmController {
 
     private static final Logger logger = LogManager.getLogger(AdmController.class);
     private static final String ADM_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Administrador\\Administrador.txt";
-    public static final String SESSAO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
 
     public static List<Administrador> listarAdm(){
         return AdmDAO.listarAdm(ADM_FILE_NAME);
