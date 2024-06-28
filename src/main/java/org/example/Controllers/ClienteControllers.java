@@ -1,5 +1,7 @@
 package org.example.Controllers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.Daos.ClienteDAO;
 import org.example.Daos.IngressosDAO;
 import org.example.Daos.SessaoDAO;
@@ -28,7 +30,7 @@ import static org.example.Views.AdmView.dtf;
 
 public class ClienteControllers {
 
-
+    private static final Logger logger = LogManager.getLogger(ClienteControllers.class);
     public static final String CLIENTE_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Cliente\\Cliente.txt";
     public static final String INGRESSO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Ingressos\\Ingressos.txt";
     public static final String SESSAO_FILE_NAME = "C:\\Users\\gusta\\OneDrive\\Área de Trabalho\\AMENIC\\AM3NIC\\src\\main\\java\\org\\example\\TXT\\Sessao\\Sessao.txt";
@@ -57,7 +59,7 @@ public class ClienteControllers {
             throw new ClienteException("falha ao logar");
 
         }catch(ClienteException e){
-            System.out.println("Error: " + e.getMessage());
+            logger.error("Error: " + e.getMessage());
         }
 
         return null;
@@ -160,7 +162,7 @@ public class ClienteControllers {
                 IngressosDAO.removerIngressoDao(INGRESSO_FILE_NAME, cliente.getId(), sessao.getId());
 
         }catch (InputMismatchException e){
-                System.out.println("Sessão não encontrada " + e.getMessage());
+                logger.error("Sessão não encontrada " + e.getMessage());
             }
 
 
@@ -217,7 +219,7 @@ public class ClienteControllers {
                 printWriter.close();
                 System.out.println("Ingresso impresso com sucesso em: " + file.getAbsolutePath());
             } catch (IOException e) {
-                System.out.println("Erro ao imprimir ingresso: ");
+                logger.error("Erro ao imprimir ingresso: ");
             }
         }
     }
