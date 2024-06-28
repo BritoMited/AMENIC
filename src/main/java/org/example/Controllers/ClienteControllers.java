@@ -87,6 +87,11 @@ public class ClienteControllers {
             String numeroCadeira = sc.nextLine();
             numeroCadeira = numeroCadeira.toUpperCase();
 
+            while (!validarCadeira(numeroCadeira)) {
+                System.out.println("Formato inválido! Digite novamente no formato correto (ex: A2):");
+                numeroCadeira = sc.nextLine().toUpperCase();
+            }
+
             // Verificação da disponibilidade da cadeira
             while (sessao.isDisponivel(numeroCadeira)) {
                 System.out.println("Cadeira indisponível, escolha outra:");
@@ -215,5 +220,24 @@ public class ClienteControllers {
                 System.out.println("Erro ao imprimir ingresso: ");
             }
         }
+    }
+
+    private static boolean validarCadeira(String cadeira) {
+        if (cadeira.length() < 2) {
+            return false;
+        }
+
+        char firstChar = cadeira.charAt(1);
+        if (!Character.isLetter(cadeira.charAt(0))) {
+            return false;
+        }
+
+        for (int i = 1; i < cadeira.length(); i++) {
+            if (!Character.isDigit(cadeira.charAt(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
